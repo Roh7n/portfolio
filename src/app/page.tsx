@@ -2,12 +2,26 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-2 row-start-2 items-center sm:items-start">
-        <h1>Hi, my name is Rohan baburaj</h1>
-        <h1>I'm a junior software Developer</h1>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] text-xs flex-wrap items-center justify-center">
+    <section className="min-h-screen  text-white flex flex-col">
+      <div className="flex flex-1 items-center justify-center gap-20 px-16">
+        <div className="max-w-xl space-y-6">
+          <h1>
+            <span className="text-6xl tracking-tighter text-foreground 2xl:text-8xl">
+              Hello, I&apos;m
+              <br />
+            </span>
+            <span className="text-gradient text-6xl 2xl:text-8xl">
+              Rohan Baburaj.
+            </span>
+          </h1>
+        </div>
+
+        <div className="w-[420px] h-[420px] rounded-xl bg-white/5 flex items-center justify-center">
+          <span className="opacity-40 text-sm">Graphic goes here</span>
+        </div>
+      </div>
+
+      <div className="pb-6 flex tracking-tighter justify-center text-center opacity-50 text-xs">
         <a
           className="flex items-center gap-2 hover:underline hover:underline-offset-4 text-red-500"
           href="https://youtu.be/O7FIiYsVy3U"
@@ -23,7 +37,7 @@ export default function Home() {
           />
           Site under construction — in the meantime, enjoy this masterpiece.
         </a>
-      </footer>
-    </div>
+      </div>
+    </section>
   );
 }
