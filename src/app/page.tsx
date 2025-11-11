@@ -4,7 +4,7 @@ export default function Home() {
   return (
     <section className="min-h-screen  text-white flex flex-col">
       <div className="flex flex-1 items-center justify-center gap-20 px-16">
-        <div className="max-w-xl space-y-6">
+        <div className="max-w-xl space-y-10">
           <h1>
             <span className="text-6xl tracking-tighter text-foreground 2xl:text-8xl">
               Hello, I&apos;m
@@ -16,8 +16,34 @@ export default function Home() {
           </h1>
         </div>
 
-        <div className="w-[420px] h-[420px] rounded-xl bg-white/5 flex items-center justify-center">
-          <span className="opacity-40 text-sm">Graphic goes here</span>
+        <div className="relative w-[420px] h-[420px]">
+          <div className="absolute -left-[115px] top-1/2 -translate-y-1/2 flex flex-col gap-2">
+            <span className="px-3 py-1 font-bold text-xs uppercase tracking-wide bg-white rounded-l-md text-black">
+              Next.js
+            </span>
+
+            <span className="px-3 py-1 font-bold text-xs  uppercase tracking-wide  bg-slate-800 rounded-l-md text-cyan-500">
+              Tailwind
+            </span>
+
+            <span className="px-3 py-1 font-bold text-xs uppercase tracking-wide bg-blue-400 rounded-l-md text-white">
+              TypeScript
+            </span>
+
+            <span className="px-3 py-1 font-bold text-xs uppercase tracking-wide bg-neutral-800 rounded-l-md text-blue-400">
+              React Native
+            </span>
+          </div>
+          <div className="w-[420px] h-[420px] rounded-xl bg-white/5 flex items-center opacity-40 justify-center">
+            <Image
+              aria-hidden
+              className="rounded-xl"
+              src="/flowerField.jpg"
+              alt="image"
+              width={420}
+              height={420}
+            />
+          </div>
         </div>
       </div>
 
