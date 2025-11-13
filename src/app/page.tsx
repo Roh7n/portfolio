@@ -6,12 +6,12 @@ export default function Home() {
       <div className="flex flex-1 items-center justify-center gap-20 px-16">
         <div className="max-w-xl">
           <h1>
-            <span className="text-6xl tracking-tighter 2xl:text-8xl">
+            <span className="text-6xl xl:text-8xl tracking-tighter hover:tracking-normal duration-700">
               Hello, I&apos;m
               <br />
             </span>
-            <span className="text-gradient text-6xl 2xl:text-8xl">
-              Rohan Baburaj.
+            <span className="text-6xl xl:text-8xl tracking-tighter hover:tracking-wide duration-700">
+              Rohan Baburaj
             </span>
           </h1>
         </div>
@@ -22,7 +22,7 @@ export default function Home() {
               Next.js
             </span>
 
-            <span className="px-3 py-1  font-mono text-xs   tracking-wide  bg-slate-800 rounded-l-md text-cyan-500">
+            <span className="px-3 py-1  font-mono text-xs tracking-wide bg-slate-800 rounded-l-md text-cyan-500">
               Tailwind
             </span>
 
@@ -34,7 +34,7 @@ export default function Home() {
               React Native
             </span>
           </div>
-          <div className="w-[420px] h-[420px] rounded-xl bg-white/5 flex items-center opacity-40 justify-center">
+          <div className="w-[420px] h-[420px] rounded-xl bg-white/5 flex items-center opacity-80 justify-center">
             <Image
               aria-hidden
               className="rounded-xl"
