@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 
 export default function Home() {
   return (
@@ -15,7 +14,7 @@ export default function Home() {
                 Rohan Baburaj
               </span>
             </h1>
-            <button className="border w-fit">Get in touch</button>
+            <button className="border font-mono w-fit">Get in touch</button>
           </div>
 
           <div className="flex justify-center ">
