@@ -5,8 +5,8 @@ export default function Home() {
   return (
     <section id="home" className="min-h-screen flex flex-col px-6 py-10">
       <div className="flex-grow flex items-center justify-center">
-        <div className="grid gap-10 md:grid-cols-2 items-center max-w-5xl w-full">
-          <div className="max-w-xl pl-10 mt-5">
+        <div className="grid md:grid-cols-2 items-center max-w-5xl w-full">
+          <div className="flex flex-col max-w-xl pl-10 mt-5 gap-8 ">
             <h1>
               <span className="text-6xl sm:text-6xl xl:text-8xl font-modernist font-bold tracking-tighter hover:tracking-normal duration-700 block">
                 Hello, I&apos;m
@@ -15,6 +15,7 @@ export default function Home() {
                 Rohan Baburaj
               </span>
             </h1>
+            <button className="border w-fit">Get in touch</button>
           </div>
 
           <div className="flex justify-center ">
