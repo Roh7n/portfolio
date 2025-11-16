@@ -2,7 +2,7 @@ import SocialIcon from "./SocialIcon";
 
 export default function Sidebar() {
   return (
-    <div className="fixed left-4 top-1/2 flex flex-col space-y-4">
+    <div className="fixed left-4 top-1/3 flex flex-col space-y-4 gap-1">
       <SocialIcon
         href="https://github.com/Roh7n"
         src="/github.svg"
