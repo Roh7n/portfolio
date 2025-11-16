@@ -1,4 +1,4 @@
-import SocialIcon from "./SocialIcon";
+import SocialIcon from "../ui/SocialIcon";
 
 export default function Sidebar() {
   return (
