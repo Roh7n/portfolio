@@ -8,4 +8,4 @@
 
 - add more content
 
-- add header gradient
+- [x] add header gradient
