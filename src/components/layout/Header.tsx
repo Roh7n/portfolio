@@ -2,12 +2,19 @@ import Image from "next/image";
 
 export default function Header() {
   return (
-    <header className="fixed top-0 w-full backdrop-blur-[2px] px-7 z-50">
-      <div className="flex items-center justify-between h-18">
-        <Image src="/moon.svg" alt="rb" width={20} height={20} />
-        <Image src="/logo.svg" alt="rb" width={75} height={75} />
-        <Image src="/Menu_Duo_LG.svg" alt="rb" width={20} height={20} />
+    <header className="w-full flex items-center justify-between bg-white text-black px-8 py-4">
+      <div className="flex items-center gap-2">
+        <span className="text-xl font-medium">Rohan ®</span>
+        <Image src="/logo.png" alt="logo" width={65} height={65} />
       </div>
+
+      <nav className="flex items-center gap-6 text-lg">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+      </nav>
+
+      <div className="text-lg">Let’s talk</div>
     </header>
   );
 }
