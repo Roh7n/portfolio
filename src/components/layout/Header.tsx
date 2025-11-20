@@ -2,19 +2,23 @@ import Image from "next/image";
 
 export default function Header() {
   return (
-    <header className="w-full flex items-center justify-between bg-white text-black px-8 py-4">
-      <div className="flex items-center gap-2">
-        <span className="text-xl font-medium">Rohan ®</span>
-        <Image src="/logo.png" alt="logo" width={65} height={65} />
+    <header className="flex flex-wrap md:flex-nowrap items-center px-6 md:px-10 py-4 gap-4 fixed tracking-tighter top-0 w-full backdrop-blur-lg z-50">
+      <div className="w-full hidden md:block md:basis-1/9 font-poppins-light flex items-center md:items-center">
+        <span className="text-2xl md:text-3xl">Rohan</span>
+        <span className="text-xl md:text-2xl ml-1">®</span>
       </div>
 
-      <nav className="flex items-center gap-6 text-lg">
-        <a href="#about">About</a>
-        <a href="#skills">Skills</a>
-        <a href="#projects">Projects</a>
-      </nav>
+      <div className="w-full md:basis-1/6 flex md:justify-start justify-center">
+        <Image src="/logo.png" alt="logo" width={45} height={45} />
+      </div>
 
-      <div className="text-lg">Let’s talk</div>
+      <div className="w-full md:basis-4/6 text-lg md:text-xl font-poppins-light flex justify-center md:justify-end">
+        About • Skills • Projects
+      </div>
+
+      <div className="w-full md:basis-1/6 text-lg md:text-xl font-poppins-light flex justify-center md:justify-end">
+        Let’s talk
+      </div>
     </header>
   );
 }

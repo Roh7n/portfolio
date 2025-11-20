@@ -21,31 +21,14 @@ export default function Hero() {
           </div>
 
           <div className="flex justify-center">
-            <div className="relative w-[200px] h-[200px] mt-5 md:ml-40 ">
-              <div className="hidden absolute [@media(min-width:768px)]:flex flex-col gap-2  top-1/2 -translate-y-1/2 -left-[199px] ">
-                <span className="flex items-center justify-start h-6 w-60 px-3 py-1 font-mono text-xs bg-white rounded-l-md text-black transition-all duration-600 ease-out hover:-translate-x-6 hover:bg-black hover:text-white">
-                  Next.js
-                </span>
-
-                <span className="flex items-center justify-start h-6 px-3 py-1 font-mono text-xs bg-slate-800 rounded-l-md text-cyan-400 transition-all duration-600 ease-out hover:-translate-x-10 hover:bg-sky-400 hover:text-slate-900">
-                  Tailwind
-                </span>
-
-                <span className="flex items-center justify-start h-6 px-3 py-1 font-mono text-xs bg-blue-500 rounded-l-md text-white transition-all duration-600 ease-out hover:-translate-x-8 hover:bg-blue-600 hover:text-white">
-                  TypeScript
-                </span>
-
-                <span className="flex items-center justify-start h-6 px-3 py-1 font-mono text-xs bg-neutral-900 rounded-l-md text-blue-400 transition-all duration-600 ease-out hover:-translate-x-4 hover:bg-cyan-300 hover:text-slate-900">
-                  React Native
-                </span>
-              </div>
-
+            <div className="relative mt-5 md:ml-40 ">
               <Image
                 aria-hidden
-                className="rounded-xl object-cover md:scale-180"
-                src="/flowerField.jpg"
+                className="rounded-xl object-cover"
+                src="/eye.png"
                 alt="image"
-                fill
+                width={756}
+                height={756}
               />
             </div>
           </div>
