@@ -9,3 +9,5 @@
 - add more content
 
 - [x] add header gradient
+
+- fix header logo
