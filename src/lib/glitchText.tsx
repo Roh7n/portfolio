@@ -1,6 +1,6 @@
 const runningSet = new WeakSet<HTMLElement>();
 
-export function glitchEffect(element: HTMLElement, duration = 250) {
+export function glitchEffect(element: HTMLElement, duration = 200) {
   // if this element is already running a glitch, do nothing
   if (runningSet.has(element)) return;
 

@@ -5,7 +5,7 @@ import GlitchText from "../ui/GlitchText";
 export default function Header() {
   return (
     <header className="flex flex-wrap md:flex-nowrap items-center px-6 md:px-10 py-4 gap-4 fixed tracking-tighter top-0 w-full backdrop-blur-lg z-50">
-      <div className="w-full hidden md:block md:basis-1/9 font-poppins-light flex items-center md:items-center">
+      <div className="w-full hidden md:block md:basis-1/9 font-poppins-light  items-center md:items-center">
         <GlitchText className="text-2xl md:text-3xl">Rohan</GlitchText>
         <span className="text-xl md:text-2xl ml-1">®</span>
       </div>
@@ -18,20 +18,20 @@ export default function Header() {
 
       <div className="w-full md:basis-4/6 text-lg md:text-xl font-poppins-light flex justify-center gap-2 md:justify-end">
         <Link href="#about">
-          <GlitchText>About</GlitchText>
+          <GlitchText className="hover:underline">About</GlitchText>
         </Link>
         <span>•</span>
         <Link href="#skills">
-          <GlitchText>Skills</GlitchText>
+          <GlitchText className="hover:underline">Skills</GlitchText>
         </Link>
         <span>•</span>
         <Link href="#projects">
-          <GlitchText>Projects</GlitchText>
+          <GlitchText className="hover:underline">Projects</GlitchText>
         </Link>
       </div>
 
       <div className="w-full md:basis-1/6 text-lg md:text-xl font-poppins-light flex justify-center md:justify-end">
-        <GlitchText>Let&apos;s talk</GlitchText>
+        <GlitchText className="hover:underline">Let&apos;s talk</GlitchText>
       </div>
     </header>
   );
