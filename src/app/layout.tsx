@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import localFont from "next/font/local";
-import "./globals.css";
+import "@/styles/globals.css";
 import Sidebar from "@/components/layout/SideBar";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
@@ -14,6 +14,16 @@ const geistSans = Geist({
 const modernist = localFont({
   src: "../fonts/Sk-Modernist-Regular.otf",
   variable: "--font-modernist",
+});
+
+const poppins = localFont({
+  src: "../fonts/Poppins-Regular.ttf",
+  variable: "--font-poppins",
+});
+
+const poppinsLight = localFont({
+  src: "../fonts/Poppins-Light.ttf",
+  variable: "--font-poppins-light",
 });
 
 const geistMono = Geist_Mono({
@@ -34,10 +44,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${modernist.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${modernist.variable} ${poppinsLight.variable} ${poppins.variable} antialiased`}
       >
         <Header />
-        <Sidebar />
+        {/* <Sidebar /> */}
         {children}
         <Footer />
       </body>
