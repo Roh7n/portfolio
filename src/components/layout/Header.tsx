@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Header() {
   return (
@@ -9,11 +10,17 @@ export default function Header() {
       </div>
 
       <div className="w-full md:basis-1/6 flex md:justify-start justify-center">
-        <Image src="/logo.png" alt="logo" width={45} height={45} />
+        <Link href="#home">
+          <Image src="/logo.svg" alt="logo" width={45} height={45} />
+        </Link>
       </div>
 
-      <div className="w-full md:basis-4/6 text-lg md:text-xl font-poppins-light flex justify-center md:justify-end">
-        About • Skills • Projects
+      <div className="w-full md:basis-4/6 text-lg md:text-xl font-poppins-light flex justify-center gap-2 md:justify-end">
+        <Link href="#about">About</Link>
+        <span>•</span>
+        <Link href="#skills">Skills</Link>
+        <span>•</span>
+        <Link href="#projects">Projects</Link>
       </div>
 
       <div className="w-full md:basis-1/6 text-lg md:text-xl font-poppins-light flex justify-center md:justify-end">
