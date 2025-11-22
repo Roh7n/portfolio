@@ -20,21 +20,21 @@ export default function About() {
             width={756}
             height={756}
           />
-          <div className="absolute top-[50px] -left-[40px] md:top-[70px] md:left-[10px]  text-sm font-poppins ">
-            JSPiders Java Trainee <br /> Nov 23’ – Jun 24’
+          <div className="absolute top-[40px] -left-[40px] md:top-[70px] md:left-[10px]  text-xs md:text-sm font-poppins ">
+            JSpiders Java Trainee <br /> Nov 23&apos; &mdash; Jun 24&apos;
           </div>
 
-          <div className="absolute top-[185px] left-[120px] md:left-[200px] md:top-[220px] lg:left-[250px] lg:top-[260px] text-sm font-poppins">
-            IQ Matrix Infoways <br /> Aug 24’ – Jun 25’
+          <div className="absolute top-[120px] left-[50px] md:left-[200px] md:top-[220px] lg:left-[250px] lg:top-[260px] text-xs md:text-sm font-poppins">
+            IQ Matrix Infoways <br /> Aug 24&apos; &mdash; Jun 25&apos;
           </div>
 
-          <div className="absolute top-[130px] left-[300px] md:left-[420px] md:top-[155px] lg:left-[500px] lg:top-[180px] text-sm font-poppins">
-            Freelance <br /> Aug 25’ – Present
+          <div className="absolute top-[88px] left-[170px] md:left-[420px] md:top-[155px] lg:left-[500px] lg:top-[180px] text-xs md:text-sm font-poppins">
+            Freelance <br /> Aug 25&apos; &mdash; Present
           </div>
         </div>
 
         <div className="w-full">
-          <h1 className="text-4xl font-poppins tracking-tighter pb-6 w-full">
+          <h1 className="text-3xl font-poppins tracking-tighter pb-6 w-full">
             Tech Stacks
           </h1>
 
@@ -49,7 +49,7 @@ export default function About() {
         </div>
       </div>
 
-      <div className="text-6xl font-instrument-light tracking-tighter mt-10">
+      <div className="text-4xl  md:text-6xl font-instrument-light tracking-tighter mt-10">
         Focus on building practical, reliable digital solutions. From developing
         leave-management systems and reusable UI components to creating
         cross-platform mobile apps, my work is driven by clear thinking,
