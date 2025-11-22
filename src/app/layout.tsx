@@ -11,6 +11,11 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
 const modernist = localFont({
   src: "../fonts/Sk-Modernist-Regular.otf",
   variable: "--font-modernist",
@@ -26,9 +31,9 @@ const poppinsLight = localFont({
   variable: "--font-poppins-light",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const instrumentLight = localFont({
+  src: "../fonts/InstrumentSerif.ttf",
+  variable: "--font-instrument-light",
 });
 
 export const metadata: Metadata = {
@@ -44,7 +49,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${modernist.variable} ${poppinsLight.variable} ${poppins.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${modernist.variable} ${poppinsLight.variable} ${poppins.variable} ${instrumentLight.variable} antialiased`}
       >
         <Header />
         {/* <Sidebar /> */}

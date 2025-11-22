@@ -14,6 +14,7 @@
   --font-modernist:var(--font-modernist);
   --font-poppins:var(--font-poppins);
   --font-poppins-light:var(--font-poppins-light);
+  --font-instrument-light:var(--font-instrument-light);
 }
 
 body {
@@ -22,4 +23,3 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   background-color: #ffffff;
   }
-
