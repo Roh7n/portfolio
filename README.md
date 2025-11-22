@@ -10,4 +10,4 @@
 
 - [x] add header gradient
 
-- fix header logo
+- [x] fix header logo

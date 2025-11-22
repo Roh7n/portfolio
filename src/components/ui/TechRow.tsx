@@ -13,9 +13,7 @@ export function TechRow({ title, items, isLast }: TechRowProps) {
         {items.map((item, i) => (
           <h1
             key={i}
-            className={`pb-1 ${
-              i !== items.length - 1 ? "border-b-2 border-black" : ""
-            }`}
+            className={`pb-1 ${i !== items.length - 1 ? "border-b-2" : ""}`}
           >
             {item}
           </h1>
