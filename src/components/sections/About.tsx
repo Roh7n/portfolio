@@ -14,21 +14,35 @@ export default function About() {
       <div className="flex flex-wrap lg:flex-nowrap px-6 md:px-10 py-4 gap-4  tracking-tighter top-0 w-full ">
         <div className="relative w-full flex ">
           <Image
-            className="rounded-xl object-cover my-10 md:mx-15 "
+            className="rounded-xl my-10  "
             src="/timeline.svg"
             alt="image"
             width={756}
             height={756}
           />
-          <div className="absolute top-[40px] -left-[40px] md:top-[70px] md:left-[10px]  text-xs md:text-sm font-poppins ">
+          <div
+            className="absolute text-xs md:text-sm font-poppins 
+                          top-[40px] -left-[40px] 
+                          lg:top-[110px] xl:top-[90px]"
+          >
             JSpiders Java Trainee <br /> Nov 23&apos; &mdash; Jun 24&apos;
           </div>
 
-          <div className="absolute top-[120px] left-[50px] md:left-[200px] md:top-[220px] lg:left-[250px] lg:top-[260px] text-xs md:text-sm font-poppins">
+          <div
+            className="absolute text-xs md:text-sm font-poppins
+                        top-[120px] left-[50px] 
+                        lg:top-[220px] lg:left-[90px] 
+                        xl:top-[260px] xl:left-[190px]"
+          >
             IQ Matrix Infoways <br /> Aug 24&apos; &mdash; Jun 25&apos;
           </div>
 
-          <div className="absolute top-[88px] left-[170px] md:left-[420px] md:top-[155px] lg:left-[500px] lg:top-[180px] text-xs md:text-sm font-poppins">
+          <div
+            className="absolute text-xs md:text-sm font-poppins
+                            top-[88px] left-[170px] 
+                            lg:top-[175px] lg:left-[240px] 
+                            xl:top-[180px] xl:left-[450px] "
+          >
             Freelance <br /> Aug 25&apos; &mdash; Present
           </div>
         </div>
