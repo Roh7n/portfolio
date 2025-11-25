@@ -17,12 +17,12 @@ export default function Header() {
       </div>
 
       <div className="w-full md:basis-4/6 text-lg md:text-xl font-poppins-light flex justify-center gap-2 md:justify-end">
-        <Link href="#about">
-          <GlitchText className="hover:underline">Work</GlitchText>
+        <Link href="#home">
+          <GlitchText className="hover:underline">About</GlitchText>
         </Link>
         <span>•</span>
-        <Link href="#skills">
-          <GlitchText className="hover:underline">Skills</GlitchText>
+        <Link href="#work">
+          <GlitchText className="hover:underline">Work</GlitchText>
         </Link>
         <span>•</span>
         <Link href="#projects">
