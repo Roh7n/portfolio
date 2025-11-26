@@ -7,6 +7,7 @@ export default function Footer() {
         <a
           className="flex items-center gap-2 hover:underline font-mono hover:underline-offset-4 tracking-tighter text-red-600 text-xs opacity-75"
           target="_blank"
+          href="https://github.com/Roh7n"
           rel="noopener noreferrer"
         >
           <Image
@@ -16,7 +17,7 @@ export default function Footer() {
             width={16}
             height={16}
           />
-          Site under construction
+          Site under construction — in the meantime, explore my work on GitHub.
         </a>
       </div>
     </section>
