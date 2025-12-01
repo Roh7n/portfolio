@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { techStacks } from "@/constants/data";
+import { techStacks } from "@/utils/data";
 import { TechRow } from "../ui/TechRow";
 
 export default function About() {

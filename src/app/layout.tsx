@@ -6,6 +6,8 @@ import Sidebar from "@/components/layout/SideBar";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 
+import { ReactLenis } from "@/utils/lenis";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -48,14 +50,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} ${modernist.variable} ${poppinsLight.variable} ${poppins.variable} ${instrumentLight.variable} antialiased`}
-      >
-        <Header />
-        {/* <Sidebar /> */}
-        {children}
-        <Footer />
-      </body>
+      <ReactLenis root>
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} ${modernist.variable} ${poppinsLight.variable} ${poppins.variable} ${instrumentLight.variable} antialiased`}
+        >
+          <Header />
+          {/* <Sidebar /> */}
+          {children}
+          <Footer />
+        </body>
+      </ReactLenis>
     </html>
   );
 }
