@@ -21,27 +21,22 @@ export default function About() {
             height={756}
           />
           <div
-            className="absolute text-xs md:text-sm font-poppins 
-                          top-[40px] -left-[40px] 
-                          lg:top-[110px] xl:top-[90px]"
+            className="absolute text-[10px] md:text-sm font-poppins 
+                          top-[16%] -left-[5%]"
           >
             JSpiders Java Trainee <br /> Nov 23&apos; &mdash; Jun 24&apos;
           </div>
 
           <div
-            className="absolute text-xs md:text-sm font-poppins
-                        top-[120px] left-[50px] 
-                        lg:top-[220px] lg:left-[90px] 
-                        xl:top-[260px] xl:left-[190px]"
+            className="absolute text-[10px] md:text-sm font-poppins
+                        top-[52%] left-[22%]"
           >
             IQ Matrix Infoways <br /> Aug 24&apos; &mdash; Jun 25&apos;
           </div>
 
           <div
-            className="absolute text-xs md:text-sm font-poppins
-                            top-[88px] left-[170px] 
-                            lg:top-[175px] lg:left-[240px] 
-                            xl:top-[180px] xl:left-[450px] "
+            className="absolute text-[10px] md:text-sm font-poppins
+                            top-[36%] left-[51%] "
           >
             Freelance <br /> Aug 25&apos; &mdash; Present
           </div>
