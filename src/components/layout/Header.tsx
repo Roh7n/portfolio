@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import GlitchText from "../ui/GlitchText";
+import ScrollLink from "@/components/ui/ScrollLink";
 
 export default function Header() {
   return (
@@ -17,21 +18,23 @@ export default function Header() {
       </div>
 
       <div className="w-full md:basis-4/6 text-lg md:text-xl font-poppins-light flex justify-center gap-2 md:justify-end">
-        <Link href="#home">
+        <ScrollLink href="#home">
           <GlitchText className="hover:underline">About</GlitchText>
-        </Link>
+        </ScrollLink>
         <span>•</span>
-        <Link href="#work">
+        <ScrollLink href="#work">
           <GlitchText className="hover:underline">Work</GlitchText>
-        </Link>
+        </ScrollLink>
         <span>•</span>
-        <Link href="#projects">
+        <ScrollLink href="#projects">
           <GlitchText className="hover:underline">Projects</GlitchText>
-        </Link>
+        </ScrollLink>
       </div>
 
       <div className="w-full md:basis-1/6 text-lg md:text-xl font-poppins-light flex justify-center md:justify-end">
-        <GlitchText className="hover:underline">Let&apos;s talk</GlitchText>
+        <ScrollLink href="#contact">
+          <GlitchText className="hover:underline">Let&apos;s talk</GlitchText>
+        </ScrollLink>
       </div>
     </header>
   );
