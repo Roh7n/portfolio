@@ -43,6 +43,19 @@ const SOCIALS = [
 
 type Social = (typeof SOCIALS)[number];
 
+type NowPlayingData =
+  | { isPlaying: false }
+  | {
+      isPlaying: true;
+      title: string;
+      artist: string;
+      album: string;
+      albumArt?: string;
+      songUrl: string;
+      progressMs: number;
+      durationMs: number;
+    };
+
 /* ── WebAudio vinyl crackle ─────────────────────────────────────────── */
 const VinylAudio = (() => {
   let ctx: AudioContext | null = null;
@@ -1122,10 +1135,6 @@ function EqBar({ delay }: { delay: number }) {
   );
 }
 
-function toSec(mmss: string) {
-  const [m, s] = mmss.split(":").map(Number);
-  return m * 60 + s;
-}
 function fmtT(s: number) {
   s = Math.floor(s);
   return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
@@ -1139,36 +1148,21 @@ function SidePanel({
   nowSelected: Social | null;
   playing: boolean;
 }) {
-  const tracks = [
-    {
-      title: "Redbone",
-      artist: "Childish Gambino",
-      album: '"Awaken, My Love!"',
-      dur: "5:27",
-      progress: 0.34,
-    },
-    {
-      title: "Sundress",
-      artist: "A$AP Rocky",
-      album: "Single",
-      dur: "2:52",
-      progress: 0.68,
-    },
-    {
-      title: "Nights",
-      artist: "Frank Ocean",
-      album: "Blonde",
-      dur: "5:07",
-      progress: 0.52,
-    },
-    {
-      title: "Softcore",
-      artist: "The Neighbourhood",
-      album: "Hard to Imagine",
-      dur: "3:41",
-      progress: 0.21,
-    },
-  ];
+  const [nowPlaying, setNowPlaying] = useState<NowPlayingData | null>(null);
+
+  useEffect(() => {
+    const fetchNow = async () => {
+      try {
+        const res = await fetch("/api/now-playing");
+        const data: NowPlayingData = await res.json();
+        setNowPlaying(data);
+      } catch {}
+    };
+    fetchNow();
+    const id = setInterval(fetchNow, 30_000);
+    return () => clearInterval(id);
+  }, []);
+
   const commits = [
     {
       repo: "portfolio",
@@ -1196,10 +1190,10 @@ function SidePanel({
     },
   ];
 
-  const [ti, setTi] = useState(0);
   const [ci, setCi] = useState(0);
-  const track = tracks[ti];
   const commit = commits[ci];
+  const np = nowPlaying?.isPlaying ? nowPlaying : null;
+  const progress = np ? np.progressMs / np.durationMs : 0;
 
   const card: React.CSSProperties = {
     background: "#fff",
@@ -1332,12 +1326,17 @@ function SidePanel({
                 width: 7,
                 height: 7,
                 borderRadius: "50%",
-                background: "#1DB954",
+                background: np ? "#1DB954" : INK,
+                opacity: np ? 1 : 0.3,
                 display: "inline-block",
-                animation: "vp-pulse 1.6s ease-out infinite",
+                animation: np ? "vp-pulse 1.6s ease-out infinite" : "none",
               }}
             />
-            NOW PLAYING
+            {nowPlaying === null
+              ? "LOADING…"
+              : np
+                ? "NOW PLAYING"
+                : "NOT PLAYING"}
           </div>
           <div
             style={{
@@ -1350,169 +1349,184 @@ function SidePanel({
             SPOTIFY
           </div>
         </div>
-        <div style={{ display: "flex", gap: 14, alignItems: "flex-start" }}>
-          <div
-            style={{
-              width: 60,
-              height: 60,
-              flexShrink: 0,
-              borderRadius: 6,
-              background: "linear-gradient(135deg,#2a2a2a 0%,#0f0f0f 100%)",
-              position: "relative",
-              overflow: "hidden",
-              boxShadow:
-                "inset 0 0 0 1px rgba(255,255,255,.04),0 3px 8px rgba(0,0,0,.15)",
-            }}
-          >
+        {np ? (
+          <>
+            <div style={{ display: "flex", gap: 14, alignItems: "flex-start" }}>
+              <div
+                style={{
+                  width: 60,
+                  height: 60,
+                  flexShrink: 0,
+                  borderRadius: 6,
+                  background: "linear-gradient(135deg,#2a2a2a 0%,#0f0f0f 100%)",
+                  position: "relative",
+                  overflow: "hidden",
+                  boxShadow:
+                    "inset 0 0 0 1px rgba(255,255,255,.04),0 3px 8px rgba(0,0,0,.15)",
+                }}
+              >
+                {np.albumArt ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={np.albumArt}
+                    alt={np.album}
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      borderRadius: 6,
+                    }}
+                  />
+                ) : (
+                  <>
+                    <div
+                      style={{
+                        position: "absolute",
+                        inset: 0,
+                        background:
+                          "radial-gradient(circle at 50%,transparent 18%,rgba(255,255,255,.06) 19%,transparent 20%),radial-gradient(circle at 50%,transparent 30%,rgba(255,255,255,.04) 31%,transparent 32%)",
+                      }}
+                    />
+                    <div
+                      style={{
+                        position: "absolute",
+                        inset: 0,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        fontFamily: "var(--font-instrument-light),serif",
+                        fontStyle: "italic",
+                        fontSize: 24,
+                        color: "rgba(255,255,255,.85)",
+                        lineHeight: 1,
+                      }}
+                    >
+                      {np.title.charAt(0)}
+                    </div>
+                  </>
+                )}
+              </div>
+              <div style={{ flex: 1, minWidth: 0, paddingTop: 3 }}>
+                <div
+                  style={{
+                    fontFamily: "var(--font-instrument-light),serif",
+                    fontSize: 18,
+                    lineHeight: 1.15,
+                    marginBottom: 3,
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                  }}
+                >
+                  {np.title}
+                </div>
+                <div
+                  style={{
+                    fontSize: 11.5,
+                    opacity: 0.65,
+                    lineHeight: 1.3,
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                  }}
+                >
+                  {np.artist}
+                </div>
+                <div
+                  style={{
+                    fontFamily: "var(--font-geist-mono),monospace",
+                    fontSize: 8.5,
+                    letterSpacing: 0.8,
+                    opacity: 0.4,
+                    marginTop: 6,
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                  }}
+                >
+                  {np.album.toUpperCase()}
+                </div>
+              </div>
+            </div>
+            <div style={{ marginTop: 18 }}>
+              <div
+                style={{
+                  height: 2,
+                  background: "rgba(23,23,23,.08)",
+                  borderRadius: 2,
+                  overflow: "visible",
+                  position: "relative",
+                }}
+              >
+                <div
+                  style={{
+                    position: "absolute",
+                    left: 0,
+                    top: 0,
+                    bottom: 0,
+                    width: `${progress * 100}%`,
+                    background: INK,
+                    borderRadius: 2,
+                  }}
+                />
+                <div
+                  style={{
+                    position: "absolute",
+                    left: `calc(${progress * 100}% - 4px)`,
+                    top: -3,
+                    width: 8,
+                    height: 8,
+                    borderRadius: "50%",
+                    background: INK,
+                  }}
+                />
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  fontFamily: "var(--font-geist-mono),monospace",
+                  fontSize: 8.5,
+                  letterSpacing: 0.8,
+                  opacity: 0.5,
+                  marginTop: 7,
+                }}
+              >
+                <span>{fmtT(np.progressMs / 1000)}</span>
+                <span>{fmtT(np.durationMs / 1000)}</span>
+              </div>
+            </div>
             <div
               style={{
                 position: "absolute",
-                inset: 0,
-                background:
-                  "radial-gradient(circle at 50%,transparent 18%,rgba(255,255,255,.06) 19%,transparent 20%),radial-gradient(circle at 50%,transparent 30%,rgba(255,255,255,.04) 31%,transparent 32%)",
-              }}
-            />
-            <div
-              style={{
-                position: "absolute",
-                inset: 0,
+                top: 18,
+                right: 66,
                 display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontFamily: "var(--font-instrument-light),serif",
-                fontStyle: "italic",
-                fontSize: 24,
-                color: "rgba(255,255,255,.85)",
-                lineHeight: 1,
+                alignItems: "flex-end",
+                gap: 2,
+                height: 10,
               }}
             >
-              {track.title.charAt(0)}
+              {[0, 1, 2, 3].map((i) => (
+                <EqBar key={i} delay={i * 0.15} />
+              ))}
             </div>
-          </div>
-          <div style={{ flex: 1, minWidth: 0, paddingTop: 3 }}>
-            <div
-              style={{
-                fontFamily: "var(--font-instrument-light),serif",
-                fontSize: 18,
-                lineHeight: 1.15,
-                marginBottom: 3,
-                whiteSpace: "nowrap",
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-              }}
-            >
-              {track.title}
-            </div>
-            <div
-              style={{
-                fontSize: 11.5,
-                opacity: 0.65,
-                lineHeight: 1.3,
-                whiteSpace: "nowrap",
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-              }}
-            >
-              {track.artist}
-            </div>
-            <div
-              style={{
-                fontFamily: "var(--font-geist-mono),monospace",
-                fontSize: 8.5,
-                letterSpacing: 0.8,
-                opacity: 0.4,
-                marginTop: 6,
-                whiteSpace: "nowrap",
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-              }}
-            >
-              {track.album.toUpperCase()}
-            </div>
-          </div>
-        </div>
-        <div style={{ marginTop: 18 }}>
+          </>
+        ) : (
           <div
             style={{
-              height: 2,
-              background: "rgba(23,23,23,.08)",
-              borderRadius: 2,
-              overflow: "visible",
-              position: "relative",
+              fontFamily: "var(--font-instrument-light),serif",
+              fontStyle: "italic",
+              fontSize: 15,
+              opacity: 0.4,
+              paddingBottom: 8,
             }}
           >
-            <div
-              style={{
-                position: "absolute",
-                left: 0,
-                top: 0,
-                bottom: 0,
-                width: `${track.progress * 100}%`,
-                background: INK,
-                borderRadius: 2,
-              }}
-            />
-            <div
-              style={{
-                position: "absolute",
-                left: `calc(${track.progress * 100}% - 4px)`,
-                top: -3,
-                width: 8,
-                height: 8,
-                borderRadius: "50%",
-                background: INK,
-              }}
-            />
+            {nowPlaying === null ? "Fetching…" : "Nothing on the platter."}
           </div>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              fontFamily: "var(--font-geist-mono),monospace",
-              fontSize: 8.5,
-              letterSpacing: 0.8,
-              opacity: 0.5,
-              marginTop: 7,
-            }}
-          >
-            <span>{fmtT(track.progress * toSec(track.dur))}</span>
-            <span>{track.dur}</span>
-          </div>
-        </div>
-        <div
-          style={{
-            position: "absolute",
-            top: 18,
-            right: 66,
-            display: "flex",
-            alignItems: "flex-end",
-            gap: 2,
-            height: 10,
-          }}
-        >
-          {[0, 1, 2, 3].map((i) => (
-            <EqBar key={i} delay={i * 0.15} />
-          ))}
-        </div>
-        <button
-          onClick={() => setTi((ti + 1) % tracks.length)}
-          style={{
-            position: "absolute",
-            bottom: 14,
-            right: 16,
-            background: "transparent",
-            border: "none",
-            fontFamily: "var(--font-geist-mono),monospace",
-            fontSize: 8.5,
-            letterSpacing: 1.4,
-            opacity: 0.4,
-            cursor: "pointer",
-            padding: 4,
-            color: INK,
-          }}
-        >
-          ↻ NEXT
-        </button>
+        )}
       </div>
 
       {/* Latest Commit */}
