@@ -1,13 +1,13 @@
 import Hero from "@/components/sections/Hero";
 import Work from "@/components/sections/Work";
-import Contact from "@/components/sections/Contact";
+import LetsTalk from "@/components/sections/LetsTalk";
 
 export default function Home() {
   return (
     <>
       <Hero />
       <Work />
-      <Contact />
+      <LetsTalk />
     </>
   );
 }

@@ -43,3 +43,17 @@ html.lenis body{
 .lenis.lenis-smooth iframe {
   pointer-events: none;
 }
+
+@keyframes vp-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@keyframes vp-eq {
+  0%, 100% { transform: scaleY(0.25); }
+  50%      { transform: scaleY(1); }
+}
+@keyframes vp-pulse {
+  0%   { box-shadow: 0 0 0 0   rgba(29,185,84,0.6); }
+  70%  { box-shadow: 0 0 0 6px rgba(29,185,84,0); }
+  100% { box-shadow: 0 0 0 0   rgba(29,185,84,0); }
+}
