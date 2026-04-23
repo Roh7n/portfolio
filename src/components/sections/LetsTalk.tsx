@@ -138,218 +138,120 @@ const VinylAudio = (() => {
 
 /* ── CoverArt ───────────────────────────────────────────────────────── */
 function CoverArt({ id, size = "sm" }: { id: string; size?: "sm" | "lg" }) {
-  const S = {
-    padding: size === "sm" ? "6px 7px" : "14px 16px",
-    fs: size === "sm" ? 6.5 : 13,
-    bigFs: size === "sm" ? 16 : 38,
-  };
-  const base: React.CSSProperties = {
-    position: "absolute",
-    inset: 0,
-    display: "flex",
-    flexDirection: "column",
-    padding: S.padding,
-    fontFamily: "var(--font-geist-mono), monospace",
-    color: INK,
-    fontSize: S.fs,
-    letterSpacing: 0.8,
-    lineHeight: 1.1,
-    pointerEvents: "none",
-  };
+  const fs = size === "sm" ? 6.5 : 13;
+  const bigFs = size === "sm" ? 16 : 38;
+  const pad = size === "sm" ? "6px 7px" : "14px 16px";
+
+  const base = "absolute inset-0 flex flex-col font-mono text-ink pointer-events-none";
+  const baseStyle: React.CSSProperties = { padding: pad, fontSize: fs, letterSpacing: 0.8, lineHeight: 1.1 };
 
   if (id === "github")
     return (
-      <div style={base}>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
+      <div className={base} style={baseStyle}>
+        <div className="flex justify-between">
           <span>001</span>
           <span>GH</span>
         </div>
-        <div
-          style={{
-            flex: 1,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
+        <div className="flex-1 flex items-center justify-center">
           <div
-            style={{
-              fontFamily: "var(--font-instrument-light), serif",
-              fontSize: S.bigFs,
-              fontStyle: "italic",
-              lineHeight: 0.9,
-              textAlign: "center",
-              letterSpacing: -0.5,
-            }}
+            className="font-instrument-light italic text-center"
+            style={{ fontSize: bigFs, lineHeight: 0.9, letterSpacing: -0.5 }}
           >
             push,
             <br />
             commit
             <br />
-            <span style={{ opacity: 0.5 }}>&amp; merge</span>
+            <span className="opacity-50">&amp; merge</span>
           </div>
         </div>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            opacity: 0.5,
-          }}
-        >
+        <div className="flex justify-between opacity-50">
           <span>LP</span>
           <span>A·B</span>
         </div>
       </div>
     );
+
   if (id === "linkedin")
     return (
       <div
+        className={base}
         style={{
-          ...base,
+          ...baseStyle,
           background:
             "linear-gradient(180deg,transparent 48%,rgba(23,23,23,.08) 48% 52%,transparent 52%)",
         }}
       >
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <div className="flex justify-between">
           <span>VOL</span>
           <span>002</span>
         </div>
-        <div
-          style={{
-            flex: 1,
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-          }}
-        >
-          <div
-            style={{
-              fontFamily: "var(--font-instrument-light), serif",
-              fontSize: S.bigFs,
-              lineHeight: 0.95,
-              letterSpacing: -0.5,
-            }}
-          >
-            The
-          </div>
-          <div
-            style={{
-              fontFamily: "var(--font-instrument-light), serif",
-              fontSize: S.bigFs * 1.3,
-              lineHeight: 0.9,
-              letterSpacing: -1,
-              fontStyle: "italic",
-            }}
-          >
-            Network
-          </div>
-          <div
-            style={{
-              fontFamily: "var(--font-instrument-light), serif",
-              fontSize: S.bigFs,
-              lineHeight: 0.95,
-              letterSpacing: -0.5,
-              textAlign: "right",
-            }}
-          >
-            Sessions
-          </div>
+        <div className="flex-1 flex flex-col justify-center">
+          <div className="font-instrument-light" style={{ fontSize: bigFs, lineHeight: 0.95, letterSpacing: -0.5 }}>The</div>
+          <div className="font-instrument-light italic" style={{ fontSize: bigFs * 1.3, lineHeight: 0.9, letterSpacing: -1 }}>Network</div>
+          <div className="font-instrument-light text-right" style={{ fontSize: bigFs, lineHeight: 0.95, letterSpacing: -0.5 }}>Sessions</div>
         </div>
-        <div style={{ textAlign: "center", opacity: 0.6, letterSpacing: 1.4 }}>
+        <div className="text-center opacity-60" style={{ letterSpacing: 1.4 }}>
           in/rohanbabs
         </div>
       </div>
     );
+
   if (id === "spotify")
     return (
-      <div style={base}>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
+      <div className={base} style={baseStyle}>
+        <div className="flex justify-between">
           <span>B-SIDE</span>
           <span>003</span>
         </div>
-        <div
-          style={{
-            flex: 1,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <div
-            style={{ position: "relative", width: "70%", aspectRatio: "1/1" }}
-          >
+        <div className="flex-1 flex items-center justify-center">
+          <div className="relative w-[70%] aspect-square">
             {[0.2, 0.45, 0.7, 0.95].map((t, i) => (
               <div
                 key={i}
+                className="absolute rounded-full border"
                 style={{
-                  position: "absolute",
                   inset: `${(1 - t) * 50}%`,
-                  border: `1px solid rgba(23,23,23,${0.2 - i * 0.04})`,
-                  borderRadius: "50%",
+                  borderColor: `rgba(23,23,23,${0.2 - i * 0.04})`,
                 }}
               />
             ))}
             <div
-              style={{
-                position: "absolute",
-                inset: 0,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontFamily: "var(--font-instrument-light), serif",
-                fontStyle: "italic",
-                fontSize: S.bigFs * 0.6,
-              }}
+              className="absolute inset-0 flex items-center justify-center font-instrument-light italic"
+              style={{ fontSize: bigFs * 0.6 }}
             >
               24/7
             </div>
           </div>
         </div>
-        <div style={{ textAlign: "center", opacity: 0.6, letterSpacing: 1.4 }}>
+        <div className="text-center opacity-60" style={{ letterSpacing: 1.4 }}>
           on rotation
         </div>
       </div>
     );
+
   if (id === "leetcode")
     return (
-      <div style={base}>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
+      <div className={base} style={baseStyle}>
+        <div className="flex justify-between">
           <span>EP</span>
           <span>004</span>
         </div>
-        <div
-          style={{
-            flex: 1,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
+        <div className="flex-1 flex items-center justify-center">
           <div
-            style={{
-              fontFamily: "var(--font-instrument-light), serif",
-              fontSize: S.bigFs * 1.8,
-              lineHeight: 0.85,
-              letterSpacing: -2,
-              fontStyle: "italic",
-            }}
+            className="font-instrument-light italic"
+            style={{ fontSize: bigFs * 1.8, lineHeight: 0.85, letterSpacing: -2 }}
           >
             LC
           </div>
         </div>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            opacity: 0.55,
-          }}
-        >
+        <div className="flex justify-between opacity-55">
           <span>SOLVE</span>
           <span>·</span>
           <span>REPEAT</span>
         </div>
       </div>
     );
+
   return null;
 }
 
@@ -667,36 +569,15 @@ function Crate({
   hideId: string | null;
 }) {
   return (
-    <div style={{ width: "100%", maxWidth: 220, perspective: 1000 }}>
+    <div className="w-full max-w-[250px]" style={{ perspective: 1000 }}>
       <div
-        style={{
-          position: "relative",
-          padding: "22px 18px 20px",
-          background: "#fff",
-          borderRadius: 14,
-          border: "1px solid rgba(23,23,23,.10)",
-          boxShadow:
-            "0 22px 40px rgba(0,0,0,.10),0 6px 14px rgba(0,0,0,.06),inset 0 1px 0 rgba(255,255,255,.8)",
-          transform: "perspective(1200px) rotateY(-4deg) rotateX(1deg)",
-        }}
+        className="relative px-[18px] pt-[22px] pb-5 bg-white rounded-[14px] border border-ink/10 shadow-[0_22px_40px_rgba(0,0,0,.10),0_6px_14px_rgba(0,0,0,.06),inset_0_1px_0_rgba(255,255,255,.8)]"
+        style={{ transform: "perspective(1200px) rotateY(-4deg) rotateX(1deg)" }}
       >
-        <div
-          style={{
-            position: "absolute",
-            top: -10,
-            left: 14,
-            background: INK,
-            color: PAPER,
-            padding: "2px 10px",
-            fontSize: 9,
-            fontFamily: "var(--font-geist-mono),monospace",
-            letterSpacing: 1.6,
-            borderRadius: 5,
-          }}
-        >
+        <div className="absolute top-[-10px] left-[14px] bg-ink text-paper px-2.5 py-0.5 text-[9px] font-mono tracking-[1.6px] rounded-[5px]">
           THE COLLECTION
         </div>
-        <div style={{ paddingTop: 10 }}>
+        <div className="pt-2.5">
           {socials.map((s, i) => (
             <div
               key={s.id}
@@ -713,16 +594,7 @@ function Crate({
           ))}
         </div>
       </div>
-      <div
-        style={{
-          marginTop: 14,
-          fontFamily: "var(--font-geist-mono),monospace",
-          fontSize: 9,
-          letterSpacing: 1.4,
-          color: INK,
-          opacity: 0.5,
-        }}
-      >
+      <div className="mt-[14px] font-mono text-[9px] tracking-[1.4px] text-ink opacity-50">
         ← TAP A RECORD
       </div>
     </div>
@@ -1195,63 +1067,22 @@ function SidePanel({
   const np = nowPlaying?.isPlaying ? nowPlaying : null;
   const progress = np ? np.progressMs / np.durationMs : 0;
 
-  const card: React.CSSProperties = {
-    background: "#fff",
-    border: "1px solid rgba(23,23,23,.10)",
-    borderRadius: 14,
-    padding: "18px 18px 44px",
-    color: INK,
-    boxShadow:
-      "0 1px 0 rgba(23,23,23,.02),0 10px 24px -18px rgba(23,23,23,.25)",
-    position: "relative",
-  };
-  const lbl: React.CSSProperties = {
-    fontFamily: "var(--font-geist-mono),monospace",
-    fontSize: 8.5,
-    letterSpacing: 1.6,
-    color: INK,
-    opacity: 0.55,
-    textTransform: "uppercase",
-    display: "flex",
-    alignItems: "center",
-    gap: 6,
-  };
-
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: 22,
-        paddingTop: 4,
-      }}
-    >
+    <div className="flex flex-col gap-[22px] pt-1">
       {/* Now Loaded */}
       <div
-        style={{
-          ...card,
-          padding: "18px",
-          background: nowSelected ? "#fff" : "transparent",
-          border: nowSelected
-            ? "1px solid rgba(23,23,23,.10)"
-            : "1px dashed rgba(23,23,23,.18)",
-          boxShadow: nowSelected ? card.boxShadow : "none",
-        }}
+        className={[
+          "rounded-[14px] p-[18px] text-ink relative",
+          nowSelected
+            ? "bg-white border border-ink/10 shadow-[0_1px_0_rgba(23,23,23,.02),0_10px_24px_-18px_rgba(23,23,23,.25)]"
+            : "bg-transparent border border-dashed border-ink/18",
+        ].join(" ")}
       >
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            marginBottom: nowSelected ? 14 : 0,
-          }}
-        >
-          <div style={lbl}>
+        <div className={`flex justify-between items-center ${nowSelected ? "mb-[14px]" : ""}`}>
+          <div className="font-mono text-[8.5px] tracking-[1.6px] text-ink opacity-55 uppercase flex items-center gap-1.5">
             <span
+              className="inline-block w-1.5 h-1.5 rounded-full"
               style={{
-                width: 6,
-                height: 6,
-                borderRadius: "50%",
                 background: nowSelected ? "#e25822" : INK,
                 opacity: nowSelected ? 1 : 0.3,
                 boxShadow: nowSelected ? "0 0 6px rgba(226,88,34,.6)" : "none",
@@ -1259,19 +1090,11 @@ function SidePanel({
                   nowSelected && playing
                     ? "vp-pulse 1.2s ease-out infinite"
                     : "none",
-                display: "inline-block",
               }}
             />
             {nowSelected ? "NOW LOADED" : "NO RECORD LOADED"}
           </div>
-          <div
-            style={{
-              fontFamily: "var(--font-geist-mono),monospace",
-              fontSize: 8.5,
-              letterSpacing: 1,
-              opacity: 0.4,
-            }}
-          >
+          <div className="font-mono text-[8.5px] tracking-[1px] opacity-40">
             {nowSelected
               ? playing
                 ? "► PLAYING"
@@ -1281,29 +1104,11 @@ function SidePanel({
         </div>
         {nowSelected && (
           <div>
-            <div
-              style={{
-                fontFamily: "var(--font-instrument-light),serif",
-                fontSize: 22,
-                letterSpacing: -0.4,
-                lineHeight: 1,
-                color: INK,
-                fontStyle: "italic",
-              }}
-            >
+            <div className="font-instrument-light italic text-[22px] tracking-[-0.4px] leading-none text-ink">
               {nowSelected.name.charAt(0) +
                 nowSelected.name.slice(1).toLowerCase()}
             </div>
-            <div
-              style={{
-                marginTop: 6,
-                fontFamily: "var(--font-geist-mono),monospace",
-                fontSize: 10,
-                letterSpacing: 0.8,
-                color: INK,
-                opacity: 0.6,
-              }}
-            >
+            <div className="mt-1.5 font-mono text-[10px] tracking-[0.8px] text-ink opacity-60">
               {nowSelected.handle}
             </div>
           </div>
@@ -1311,24 +1116,14 @@ function SidePanel({
       </div>
 
       {/* Now Playing */}
-      <div style={card}>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            marginBottom: 16,
-          }}
-        >
-          <div style={lbl}>
+      <div className="bg-white border border-ink/10 rounded-[14px] px-[18px] pt-[18px] pb-11 text-ink shadow-[0_1px_0_rgba(23,23,23,.02),0_10px_24px_-18px_rgba(23,23,23,.25)] relative">
+        <div className="flex justify-between items-center mb-4">
+          <div className="font-mono text-[8.5px] tracking-[1.6px] text-ink opacity-55 uppercase flex items-center gap-1.5">
             <span
+              className="inline-block w-[7px] h-[7px] rounded-full"
               style={{
-                width: 7,
-                height: 7,
-                borderRadius: "50%",
                 background: np ? "#1DB954" : INK,
                 opacity: np ? 1 : 0.3,
-                display: "inline-block",
                 animation: np ? "vp-pulse 1.6s ease-out infinite" : "none",
               }}
             />
@@ -1338,293 +1133,111 @@ function SidePanel({
                 ? "NOW PLAYING"
                 : "NOT PLAYING"}
           </div>
-          <div
-            style={{
-              fontFamily: "var(--font-geist-mono),monospace",
-              fontSize: 8.5,
-              letterSpacing: 1,
-              opacity: 0.4,
-            }}
-          >
+          <div className="font-mono text-[8.5px] tracking-[1px] opacity-40">
             SPOTIFY
           </div>
         </div>
         {np ? (
           <>
-            <div style={{ display: "flex", gap: 14, alignItems: "flex-start" }}>
-              <div
-                style={{
-                  width: 60,
-                  height: 60,
-                  flexShrink: 0,
-                  borderRadius: 6,
-                  background: "linear-gradient(135deg,#2a2a2a 0%,#0f0f0f 100%)",
-                  position: "relative",
-                  overflow: "hidden",
-                  boxShadow:
-                    "inset 0 0 0 1px rgba(255,255,255,.04),0 3px 8px rgba(0,0,0,.15)",
-                }}
-              >
+            <div className="flex gap-[14px] items-start">
+              <div className="w-[60px] h-[60px] shrink-0 rounded-md bg-gradient-to-br from-[#2a2a2a] to-[#0f0f0f] relative overflow-hidden shadow-[inset_0_0_0_1px_rgba(255,255,255,.04),0_3px_8px_rgba(0,0,0,.15)]">
                 {np.albumArt ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
                     src={np.albumArt}
                     alt={np.album}
-                    style={{
-                      position: "absolute",
-                      inset: 0,
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                      borderRadius: 6,
-                    }}
+                    className="absolute inset-0 w-full h-full object-cover rounded-md"
                   />
                 ) : (
                   <>
                     <div
+                      className="absolute inset-0"
                       style={{
-                        position: "absolute",
-                        inset: 0,
                         background:
                           "radial-gradient(circle at 50%,transparent 18%,rgba(255,255,255,.06) 19%,transparent 20%),radial-gradient(circle at 50%,transparent 30%,rgba(255,255,255,.04) 31%,transparent 32%)",
                       }}
                     />
-                    <div
-                      style={{
-                        position: "absolute",
-                        inset: 0,
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        fontFamily: "var(--font-instrument-light),serif",
-                        fontStyle: "italic",
-                        fontSize: 24,
-                        color: "rgba(255,255,255,.85)",
-                        lineHeight: 1,
-                      }}
-                    >
+                    <div className="absolute inset-0 flex items-center justify-center font-instrument-light italic text-2xl text-white/85 leading-none">
                       {np.title.charAt(0)}
                     </div>
                   </>
                 )}
               </div>
-              <div style={{ flex: 1, minWidth: 0, paddingTop: 3 }}>
-                <div
-                  style={{
-                    fontFamily: "var(--font-instrument-light),serif",
-                    fontSize: 18,
-                    lineHeight: 1.15,
-                    marginBottom: 3,
-                    whiteSpace: "nowrap",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                  }}
-                >
+              <div className="flex-1 min-w-0 pt-[3px]">
+                <div className="font-instrument-light text-[18px] leading-[1.15] mb-[3px] whitespace-nowrap overflow-hidden text-ellipsis">
                   {np.title}
                 </div>
-                <div
-                  style={{
-                    fontSize: 11.5,
-                    opacity: 0.65,
-                    lineHeight: 1.3,
-                    whiteSpace: "nowrap",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                  }}
-                >
+                <div className="text-[11.5px] opacity-65 leading-[1.3] whitespace-nowrap overflow-hidden text-ellipsis">
                   {np.artist}
                 </div>
-                <div
-                  style={{
-                    fontFamily: "var(--font-geist-mono),monospace",
-                    fontSize: 8.5,
-                    letterSpacing: 0.8,
-                    opacity: 0.4,
-                    marginTop: 6,
-                    whiteSpace: "nowrap",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                  }}
-                >
+                <div className="font-mono text-[8.5px] tracking-[0.8px] opacity-40 mt-1.5 whitespace-nowrap overflow-hidden text-ellipsis">
                   {np.album.toUpperCase()}
                 </div>
               </div>
             </div>
-            <div style={{ marginTop: 18 }}>
-              <div
-                style={{
-                  height: 2,
-                  background: "rgba(23,23,23,.08)",
-                  borderRadius: 2,
-                  overflow: "visible",
-                  position: "relative",
-                }}
-              >
+            <div className="mt-[18px]">
+              <div className="h-0.5 bg-ink/8 rounded-sm overflow-visible relative">
                 <div
-                  style={{
-                    position: "absolute",
-                    left: 0,
-                    top: 0,
-                    bottom: 0,
-                    width: `${progress * 100}%`,
-                    background: INK,
-                    borderRadius: 2,
-                  }}
+                  className="absolute left-0 top-0 bottom-0 bg-ink rounded-sm"
+                  style={{ width: `${progress * 100}%` }}
                 />
                 <div
-                  style={{
-                    position: "absolute",
-                    left: `calc(${progress * 100}% - 4px)`,
-                    top: -3,
-                    width: 8,
-                    height: 8,
-                    borderRadius: "50%",
-                    background: INK,
-                  }}
+                  className="absolute top-[-3px] w-2 h-2 rounded-full bg-ink"
+                  style={{ left: `calc(${progress * 100}% - 4px)` }}
                 />
               </div>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  fontFamily: "var(--font-geist-mono),monospace",
-                  fontSize: 8.5,
-                  letterSpacing: 0.8,
-                  opacity: 0.5,
-                  marginTop: 7,
-                }}
-              >
+              <div className="flex justify-between font-mono text-[8.5px] tracking-[0.8px] opacity-50 mt-[7px]">
                 <span>{fmtT(np.progressMs / 1000)}</span>
                 <span>{fmtT(np.durationMs / 1000)}</span>
               </div>
             </div>
-            <div
-              style={{
-                position: "absolute",
-                top: 18,
-                right: 66,
-                display: "flex",
-                alignItems: "flex-end",
-                gap: 2,
-                height: 10,
-              }}
-            >
+            <div className="absolute top-[18px] right-[66px] flex items-end gap-0.5 h-2.5">
               {[0, 1, 2, 3].map((i) => (
                 <EqBar key={i} delay={i * 0.15} />
               ))}
             </div>
           </>
         ) : (
-          <div
-            style={{
-              fontFamily: "var(--font-instrument-light),serif",
-              fontStyle: "italic",
-              fontSize: 15,
-              opacity: 0.4,
-              paddingBottom: 8,
-            }}
-          >
+          <div className="font-instrument-light italic text-[15px] opacity-40 pb-2">
             {nowPlaying === null ? "Fetching…" : "Nothing on the platter."}
           </div>
         )}
       </div>
 
       {/* Latest Commit */}
-      <div style={card}>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            marginBottom: 16,
-          }}
-        >
-          <div style={lbl}>
-            <span
-              style={{
-                width: 6,
-                height: 6,
-                borderRadius: "50%",
-                background: INK,
-                opacity: 0.4,
-                display: "inline-block",
-              }}
-            />
+      <div className="bg-white border border-ink/10 rounded-[14px] px-[18px] pt-[18px] pb-11 text-ink shadow-[0_1px_0_rgba(23,23,23,.02),0_10px_24px_-18px_rgba(23,23,23,.25)] relative">
+        <div className="flex justify-between items-center mb-4">
+          <div className="font-mono text-[8.5px] tracking-[1.6px] text-ink opacity-55 uppercase flex items-center gap-1.5">
+            <span className="inline-block w-1.5 h-1.5 rounded-full bg-ink opacity-40" />
             LATEST COMMIT
           </div>
-          <div
-            style={{
-              fontFamily: "var(--font-geist-mono),monospace",
-              fontSize: 8.5,
-              letterSpacing: 1,
-              opacity: 0.4,
-            }}
-          >
+          <div className="font-mono text-[8.5px] tracking-[1px] opacity-40">
             {commit.when} AGO
           </div>
         </div>
-        <div
-          style={{
-            fontFamily: "var(--font-instrument-light),serif",
-            fontStyle: "italic",
-            fontSize: 16,
-            lineHeight: 1.35,
-            letterSpacing: -0.3,
-            marginBottom: 16,
-          }}
-        >
+        <div className="font-instrument-light italic text-[16px] leading-[1.35] tracking-[-0.3px] mb-4">
           &ldquo;{commit.msg}&rdquo;
         </div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 8,
-            fontFamily: "var(--font-geist-mono),monospace",
-            fontSize: 9,
-            letterSpacing: 0.8,
-            opacity: 0.6,
-            borderTop: "1px solid rgba(23,23,23,.08)",
-            paddingTop: 12,
-          }}
-        >
-          <span
-            style={{
-              padding: "2px 6px",
-              background: "rgba(23,23,23,.05)",
-              borderRadius: 3,
-              fontSize: 8.5,
-            }}
-          >
+        <div className="flex items-center gap-2 font-mono text-[9px] tracking-[0.8px] opacity-60 border-t border-ink/8 pt-3">
+          <span className="px-1.5 py-0.5 bg-ink/5 rounded-[3px] text-[8.5px]">
             {commit.sha}
           </span>
           <span>·</span>
           <span>{commit.repo}</span>
         </div>
-        <div
-          style={{
-            display: "flex",
-            gap: 10,
-            marginTop: 10,
-            alignItems: "center",
-            fontFamily: "var(--font-geist-mono),monospace",
-            fontSize: 9,
-          }}
-        >
-          <span style={{ color: "#2da44e" }}>+{commit.add}</span>
-          <span style={{ color: "#cf222e" }}>−{commit.del}</span>
-          <div style={{ flex: 1, display: "flex", gap: 1, marginLeft: 4 }}>
+        <div className="flex gap-2.5 mt-2.5 items-center font-mono text-[9px]">
+          <span className="text-[#2da44e]">+{commit.add}</span>
+          <span className="text-[#cf222e]">−{commit.del}</span>
+          <div className="flex-1 flex gap-px ml-1">
             {Array.from({ length: 10 }, (_, i) => (
               <div
                 key={i}
+                className="flex-1 h-1 opacity-60"
                 style={{
-                  flex: 1,
-                  height: 4,
                   background:
                     i / 10 < commit.add / (commit.add + commit.del)
                       ? "#2da44e"
                       : "#cf222e",
-                  opacity: 0.6,
                 }}
               />
             ))}
@@ -1632,20 +1245,7 @@ function SidePanel({
         </div>
         <button
           onClick={() => setCi((ci + 1) % commits.length)}
-          style={{
-            position: "absolute",
-            bottom: 14,
-            right: 16,
-            background: "transparent",
-            border: "none",
-            fontFamily: "var(--font-geist-mono),monospace",
-            fontSize: 8.5,
-            letterSpacing: 1.4,
-            opacity: 0.4,
-            cursor: "pointer",
-            padding: 4,
-            color: INK,
-          }}
+          className="absolute bottom-[14px] right-4 bg-transparent border-0 font-mono text-[8.5px] tracking-[1.4px] opacity-40 cursor-pointer p-1 text-ink"
         >
           ↻ PREV
         </button>
@@ -1682,112 +1282,153 @@ function LinerNotes({ loadedSocial }: { loadedSocial: Social | null }) {
       };
 
   return (
-    <div
-      style={{
-        marginTop: 18,
-        background: "#fff",
-        border: "1px solid rgba(23,23,23,.10)",
-        borderRadius: 14,
-        padding: "20px 24px 18px",
-        position: "relative",
-        boxShadow:
-          "0 1px 0 rgba(23,23,23,.02),0 10px 24px -18px rgba(23,23,23,.25)",
-        color: INK,
-        overflow: "hidden",
-      }}
-    >
+    <div className="mt-[18px] bg-white border border-ink/10 rounded-[14px] px-6 pt-5 pb-[18px] relative shadow-[0_1px_0_rgba(23,23,23,.02),0_10px_24px_-18px_rgba(23,23,23,.25)] text-ink overflow-hidden">
       <div
+        aria-hidden
+        className="absolute inset-0 pointer-events-none opacity-60"
         style={{
-          position: "absolute",
-          inset: 0,
-          pointerEvents: "none",
           background:
             "repeating-linear-gradient(0deg,transparent 0 23px,rgba(23,23,23,.025) 23px 24px)",
-          opacity: 0.6,
         }}
       />
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          fontFamily: "var(--font-geist-mono),monospace",
-          fontSize: 9,
-          letterSpacing: 1.6,
-          opacity: 0.55,
-          marginBottom: 12,
-          position: "relative",
-        }}
-      >
+      <div className="relative flex justify-between items-center font-mono text-[9px] tracking-[1.6px] opacity-55 mb-3">
         <span>◂ LINER NOTES</span>
         <span>{active.tag}</span>
         <span>CAT. RB-2026</span>
       </div>
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "140px 1fr",
-          gap: 24,
-          alignItems: "start",
-          position: "relative",
-        }}
-      >
+      <div className="relative grid grid-cols-[140px_1fr] gap-6 items-start">
         <div>
-          <div
-            style={{
-              fontFamily: "var(--font-instrument-light),serif",
-              fontStyle: "italic",
-              fontSize: 32,
-              lineHeight: 0.95,
-              letterSpacing: -1,
-            }}
-          >
+          <div className="font-instrument-light italic text-[32px] leading-[0.95] tracking-[-1px]">
             {active.title}
           </div>
-          <div
-            style={{
-              marginTop: 8,
-              fontFamily: "var(--font-geist-mono),monospace",
-              fontSize: 8.5,
-              letterSpacing: 1.4,
-              opacity: 0.4,
-            }}
-          >
+          <div className="mt-2 font-mono text-[8.5px] tracking-[1.4px] opacity-40">
             BY ROHAN · 2026
             <br />
-            <span style={{ opacity: 0.7 }}>MADE IN INDIA</span>
+            <span className="opacity-70">MADE IN INDIA</span>
           </div>
         </div>
         <div>
-          <p
-            style={{
-              margin: 0,
-              fontSize: 13.5,
-              lineHeight: 1.6,
-              letterSpacing: -0.1,
-            }}
-          >
+          <p className="m-0 text-[13.5px] leading-relaxed tracking-[-0.1px]">
             {active.body}
           </p>
-          <div
-            style={{
-              marginTop: 14,
-              display: "flex",
-              alignItems: "center",
-              gap: 10,
-              fontFamily: "var(--font-geist-mono),monospace",
-              fontSize: 9,
-              letterSpacing: 1.2,
-              opacity: 0.5,
-            }}
-          >
-            <span style={{ flexShrink: 0 }}>— R.B.</span>
-            <div
-              style={{ flex: 1, borderTop: "1px solid rgba(23,23,23,.15)" }}
-            />
+          <div className="mt-[14px] flex items-center gap-[10px] font-mono text-[9px] tracking-[1.2px] opacity-50">
+            <span className="shrink-0">— R.B.</span>
+            <div className="flex-1 border-t border-ink/15" />
             <span>A/B · 33⅓</span>
           </div>
         </div>
+      </div>
+    </div>
+  );
+}
+
+/* ── ContactForm ────────────────────────────────────────────────────── */
+function ContactForm() {
+  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus("sending");
+    await new Promise<void>((r) => setTimeout(r, 1200));
+    setStatus("sent");
+    setTimeout(() => {
+      setForm({ name: "", email: "", message: "" });
+      setStatus("idle");
+    }, 3000);
+  };
+
+  return (
+    <div className="bg-white border border-ink/10 rounded-[14px] p-5 text-ink shadow-[0_1px_0_rgba(23,23,23,.02),0_10px_24px_-18px_rgba(23,23,23,.25)] relative overflow-hidden">
+      <div
+        aria-hidden
+        className="absolute inset-0 pointer-events-none opacity-60"
+        style={{
+          background:
+            "repeating-linear-gradient(0deg,transparent 0 23px,rgba(23,23,23,.025) 23px 24px)",
+        }}
+      />
+
+      <div className="relative flex justify-between items-center font-mono text-[9px] tracking-[1.6px] opacity-55 mb-[14px]">
+        <span>◂ MAIL SLOT</span>
+        <span>SIDE C</span>
+      </div>
+
+      <div className="relative font-instrument-light italic text-[26px] leading-none tracking-[-0.5px] mb-5">
+        Drop a note
+      </div>
+
+      <form onSubmit={handleSubmit} className="relative flex flex-col gap-[14px]">
+        <div>
+          <label className="font-mono text-[8.5px] tracking-[1.4px] opacity-55 block mb-1.5">
+            YOUR NAME
+          </label>
+          <input
+            type="text"
+            value={form.name}
+            onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
+            placeholder="First Last"
+            required
+            className="w-full px-[11px] py-[9px] bg-paper border border-ink/15 rounded-lg font-mono text-[11px] text-ink outline-none leading-snug box-border"
+          />
+        </div>
+
+        <div>
+          <label className="font-mono text-[8.5px] tracking-[1.4px] opacity-55 block mb-1.5">
+            YOUR EMAIL
+          </label>
+          <input
+            type="email"
+            value={form.email}
+            onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
+            placeholder="you@example.com"
+            required
+            className="w-full px-[11px] py-[9px] bg-paper border border-ink/15 rounded-lg font-mono text-[11px] text-ink outline-none leading-snug box-border"
+          />
+        </div>
+
+        <div>
+          <label className="font-mono text-[8.5px] tracking-[1.4px] opacity-55 block mb-1.5">
+            YOUR MESSAGE
+          </label>
+          <textarea
+            value={form.message}
+            onChange={(e) =>
+              setForm((f) => ({ ...f, message: e.target.value }))
+            }
+            placeholder="Hey, let's work together…"
+            required
+            rows={5}
+            className="w-full px-[11px] py-[9px] bg-paper border border-ink/15 rounded-lg font-mono text-[11px] text-ink outline-none leading-snug box-border resize-y"
+          />
+        </div>
+
+        <button
+          type="submit"
+          disabled={status !== "idle"}
+          className={[
+            "px-[14px] py-[11px] text-paper border-0 rounded-[10px] font-mono text-[11px] tracking-[1.6px] font-bold",
+            "flex items-center justify-center gap-2 transition-colors duration-200",
+            "shadow-[0_6px_14px_rgba(0,0,0,.18)]",
+            status === "sent" ? "bg-[#2da44e]" : "bg-ink",
+            status === "idle" ? "cursor-pointer" : "cursor-not-allowed",
+            status === "sending" ? "opacity-70" : "opacity-100",
+          ].join(" ")}
+        >
+          {status === "idle" && (
+            <>
+              <span className="border-t-[5px] border-b-[5px] border-l-[8px] border-t-transparent border-b-transparent border-l-paper w-0 h-0" />
+              SEND
+            </>
+          )}
+          {status === "sending" && "SENDING…"}
+          {status === "sent" && "✓ DELIVERED"}
+        </button>
+      </form>
+
+      <div className="relative mt-4 font-mono text-[8px] tracking-[1.2px] opacity-35 flex justify-between">
+        <span>rohanbaburaj4446@gmail.com</span>
+        <span>CAT. RB-2026</span>
       </div>
     </div>
   );
@@ -1924,11 +1565,11 @@ function VinylPlayer() {
   return (
     <div
       ref={rootRef}
-      className="relative w-full px-5 py-10 sm:px-10 sm:py-12"
+      className="relative w-full px-4 py-8 sm:px-8 sm:py-10"
       style={{ color: INK }}
     >
       {/* header */}
-      <div className="border-b-2 border-black pb-5 mb-7 flex justify-between items-end gap-4 flex-wrap">
+      <div className="border-b-2 border-black pb-5 mb-6 flex justify-between items-end gap-4 flex-wrap">
         <h1 className="text-6xl xl:text-7xl font-instrument-light tracking-tight leading-none">
           Let&apos;s talk
         </h1>
@@ -1946,13 +1587,13 @@ function VinylPlayer() {
       </div>
 
       {/* intro */}
-      <p className="mb-6 text-[15px] max-w-[520px] tracking-tight leading-relaxed opacity-75 font-poppins-light">
+      <p className="mb-5 text-[15px] max-w-[520px] tracking-tight leading-relaxed opacity-75 font-poppins-light">
         Pick a record. Drag the tonearm onto it, or hit play — it&apos;ll take
         you where we can chat.
       </p>
 
-      {/* stage: 3-column on lg, stacked on mobile */}
-      <div className="grid grid-cols-1 lg:grid-cols-[minmax(180px,220px)_1fr_240px] gap-7 items-start relative">
+      {/* stage: 3-col on lg → 4-col on xl, stacked on mobile */}
+      <div className="grid grid-cols-1  xl:grid-cols-[200px_1fr_240px_260px] gap-5 lg:gap-6 items-start relative max-w-[1300px]">
         <div className="flex justify-center lg:justify-start">
           <Crate
             socials={SOCIALS}
@@ -1966,7 +1607,7 @@ function VinylPlayer() {
           />
         </div>
 
-        <div className="relative flex flex-col items-center lg:items-start">
+        <div className="relative flex flex-col items-start min-w-0">
           <Turntable
             loadedSocial={loaded}
             playing={playing}
@@ -1981,7 +1622,14 @@ function VinylPlayer() {
           </div>
         </div>
 
-        <SidePanel nowSelected={loaded} playing={playing} />
+        <div className="min-w-0">
+          <SidePanel nowSelected={loaded} playing={playing} />
+        </div>
+
+        {/* 4th col: xl → col 4 row 1 · lg → col 3 row 2 (below SidePanel) */}
+        <div className="min-w-0 lg:col-start-3 xl:col-start-4 xl:row-start-1">
+          <ContactForm />
+        </div>
       </div>
 
       <FlyingRecord
