@@ -5,17 +5,32 @@ import { INK, PAPER } from "./constants";
 
 export function ContactForm() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
-  const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
+    "idle",
+  );
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("sending");
-    await new Promise<void>((r) => setTimeout(r, 1200));
-    setStatus("sent");
-    setTimeout(() => {
-      setForm({ name: "", email: "", message: "" });
-      setStatus("idle");
-    }, 3000);
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+
+      if (!res.ok) throw new Error("Failed to send");
+
+      setStatus("sent");
+      setTimeout(() => {
+        setForm({ name: "", email: "", message: "" });
+        setStatus("idle");
+      }, 3000);
+    } catch {
+      setStatus("error");
+      setTimeout(() => setStatus("idle"), 3000);
+    }
   };
 
   return (
@@ -23,7 +38,10 @@ export function ContactForm() {
       <div
         aria-hidden
         className="absolute inset-0 pointer-events-none opacity-60"
-        style={{ background: "repeating-linear-gradient(0deg,transparent 0 23px,rgba(23,23,23,.025) 23px 24px)" }}
+        style={{
+          background:
+            "repeating-linear-gradient(0deg,transparent 0 23px,rgba(23,23,23,.025) 23px 24px)",
+        }}
       />
 
       <div className="relative flex justify-between items-center font-mono text-[9px] tracking-[1.6px] opacity-55 mb-[14px]">
@@ -35,9 +53,14 @@ export function ContactForm() {
         Drop a note
       </div>
 
-      <form onSubmit={handleSubmit} className="relative flex flex-col gap-[14px]">
+      <form
+        onSubmit={handleSubmit}
+        className="relative flex flex-col gap-[14px]"
+      >
         <div>
-          <label className="font-mono text-[8.5px] tracking-[1.4px] opacity-55 block mb-1.5">YOUR NAME</label>
+          <label className="font-mono text-[8.5px] tracking-[1.4px] opacity-55 block mb-1.5">
+            YOUR NAME
+          </label>
           <input
             type="text"
             value={form.name}
@@ -49,7 +72,9 @@ export function ContactForm() {
         </div>
 
         <div>
-          <label className="font-mono text-[8.5px] tracking-[1.4px] opacity-55 block mb-1.5">YOUR EMAIL</label>
+          <label className="font-mono text-[8.5px] tracking-[1.4px] opacity-55 block mb-1.5">
+            YOUR EMAIL
+          </label>
           <input
             type="email"
             value={form.email}
@@ -61,10 +86,14 @@ export function ContactForm() {
         </div>
 
         <div>
-          <label className="font-mono text-[8.5px] tracking-[1.4px] opacity-55 block mb-1.5">YOUR MESSAGE</label>
+          <label className="font-mono text-[8.5px] tracking-[1.4px] opacity-55 block mb-1.5">
+            YOUR MESSAGE
+          </label>
           <textarea
             value={form.message}
-            onChange={(e) => setForm((f) => ({ ...f, message: e.target.value }))}
+            onChange={(e) =>
+              setForm((f) => ({ ...f, message: e.target.value }))
+            }
             placeholder="Hey, let's work together…"
             required
             rows={5}
