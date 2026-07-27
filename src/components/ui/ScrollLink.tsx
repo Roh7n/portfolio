@@ -1,6 +1,6 @@
 "use client";
 
-import { useLenis } from "@/utils/lenis";
+import { useLenis } from "lenis/react";
 
 interface ScrollLinkProps {
   href: string;

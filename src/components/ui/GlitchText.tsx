@@ -1,7 +1,31 @@
 "use client";
 
 import React, { useRef, useLayoutEffect, useState } from "react";
-import { glitchEffect } from "@/lib/glitchText";
+
+const runningSet = new WeakSet<HTMLElement>();
+
+function glitchEffect(element: HTMLElement, duration = 200) {
+  if (runningSet.has(element)) return;
+
+  runningSet.add(element);
+
+  const original = element.textContent ?? "";
+  const chars = original.split("");
+  const randomChar = () => chars[Math.floor(Math.random() * chars.length)];
+
+  const interval = setInterval(() => {
+    element.textContent = chars.map(() => randomChar()).join("");
+  }, 60);
+
+  setTimeout(() => {
+    clearInterval(interval);
+
+    requestAnimationFrame(() => {
+      element.textContent = original;
+      runningSet.delete(element);
+    });
+  }, duration);
+}
 
 interface GlitchTextProps {
   children: string;

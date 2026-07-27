@@ -2,11 +2,10 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import "@/styles/globals.css";
-import Sidebar from "@/components/layout/SideBar";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 
-import { ReactLenis } from "@/utils/lenis";
+import { ReactLenis } from "lenis/react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -55,7 +54,6 @@ export default function RootLayout({
           className={`${geistSans.variable} ${geistMono.variable} ${modernist.variable} ${poppinsLight.variable} ${poppins.variable} ${instrumentLight.variable} antialiased`}
         >
           <Header />
-          {/* <Sidebar /> */}
           {children}
           <Footer />
         </body>

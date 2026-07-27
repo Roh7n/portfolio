@@ -1,7 +1,4 @@
-import { Resend } from "resend";
 import { NextResponse } from "next/server";
-
-const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(req: Request) {
   try {
@@ -15,13 +12,25 @@ export async function POST(req: Request) {
       );
     }
 
-    await resend.emails.send({
-      from: "Portfolio Contact <onboarding@resend.dev>", 
-      to: "rohanbaburaj4446@gmail.com", 
-      subject: `Portfolio Contact: ${name}`,
-      replyTo: email,
-      text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
+    const res = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from: "Portfolio Contact <onboarding@resend.dev>",
+        to: ["rohanbaburaj4446@gmail.com"],
+        subject: `Portfolio Contact: ${name}`,
+        reply_to: email,
+        text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
+      }),
     });
+
+    if (!res.ok) {
+      const errData = await res.json();
+      throw new Error(errData.message || "Failed to send email");
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {
