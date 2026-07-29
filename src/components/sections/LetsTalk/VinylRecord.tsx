@@ -105,7 +105,7 @@ export function VinylRecord({
               alignItems: "center",
               justifyContent: "center",
               textAlign: "center",
-              fontFamily: "var(--font-geist-mono),monospace",
+              fontFamily: "var(--font-poppins), sans-serif",
               color: INK,
               lineHeight: 1.1,
             }}

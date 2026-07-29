@@ -116,7 +116,7 @@ export function Turntable({
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              fontFamily: "var(--font-geist-mono),monospace",
+              fontFamily: "var(--font-poppins), sans-serif",
               fontSize: 8,
               fontWeight: 700,
               color: INK,
@@ -231,7 +231,7 @@ export function Turntable({
                 transition: "all .2s",
               }}
             />
-            <span style={{ fontFamily: "var(--font-geist-mono),monospace", fontSize: 8, letterSpacing: 1.2, color: INK }}>
+            <span style={{ fontFamily: "var(--font-poppins), sans-serif", fontSize: 8, letterSpacing: 1.2, color: INK }}>
               {playing ? "ON AIR" : "STANDBY"}
             </span>
           </div>
@@ -249,7 +249,7 @@ export function Turntable({
               color: loadedSocial ? PAPER : INK,
               border: loadedSocial ? "none" : "1px solid rgba(23,23,23,.15)",
               borderRadius: 10,
-              fontFamily: "var(--font-geist-mono),monospace",
+              fontFamily: "var(--font-poppins), sans-serif",
               fontSize: 11,
               letterSpacing: 1.6,
               fontWeight: 700,
@@ -261,6 +261,7 @@ export function Turntable({
               gap: 8,
               transition: "all .15s",
               boxShadow: loadedSocial ? "0 6px 14px rgba(0,0,0,.20)" : "none",
+              animation: loadedSocial && !playing ? "play-bounce 2s infinite" : "none",
             }}
           >
             <span

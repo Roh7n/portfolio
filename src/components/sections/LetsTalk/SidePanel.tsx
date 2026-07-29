@@ -44,7 +44,7 @@ export function SidePanel({
   const progress = np ? np.progressMs / np.durationMs : 0;
 
   return (
-    <div className="flex flex-col gap-[22px] pt-1">
+    <div className="flex flex-col justify-between gap-[18px] h-full pt-1">
       {/* Now Loaded */}
       <div
         className={[
@@ -55,7 +55,7 @@ export function SidePanel({
         ].join(" ")}
       >
         <div className={`flex justify-between items-center ${nowSelected ? "mb-[14px]" : ""}`}>
-          <div className="font-mono text-[8.5px] tracking-[1.6px] text-ink opacity-55 uppercase flex items-center gap-1.5">
+          <div className="font-poppins text-[8.5px] tracking-[1.6px] text-ink opacity-55 uppercase flex items-center gap-1.5">
             <span
               className="inline-block w-1.5 h-1.5 rounded-full"
               style={{
@@ -67,7 +67,7 @@ export function SidePanel({
             />
             {nowSelected ? "NOW LOADED" : "NO RECORD LOADED"}
           </div>
-          <div className="font-mono text-[8.5px] tracking-[1px] opacity-40">
+          <div className="font-poppins text-[8.5px] tracking-[1px] opacity-40">
             {nowSelected ? (playing ? "► PLAYING" : "SIDE " + nowSelected.side) : "— —"}
           </div>
         </div>
@@ -76,7 +76,7 @@ export function SidePanel({
             <div className="font-instrument-light italic text-[22px] tracking-[-0.4px] leading-none text-ink">
               {nowSelected.name.charAt(0) + nowSelected.name.slice(1).toLowerCase()}
             </div>
-            <div className="mt-1.5 font-mono text-[10px] tracking-[0.8px] text-ink opacity-60">
+            <div className="mt-1.5 font-poppins text-[10px] tracking-[0.8px] text-ink opacity-60">
               {nowSelected.handle}
             </div>
           </div>
@@ -86,7 +86,7 @@ export function SidePanel({
       {/* Now Playing */}
       <div className="bg-white border border-ink/10 rounded-[14px] px-[18px] pt-[18px] pb-11 text-ink shadow-[0_1px_0_rgba(23,23,23,.02),0_10px_24px_-18px_rgba(23,23,23,.25)] relative">
         <div className="flex justify-between items-center mb-4">
-          <div className="font-mono text-[8.5px] tracking-[1.6px] text-ink opacity-55 uppercase flex items-center gap-1.5">
+          <div className="font-poppins text-[8.5px] tracking-[1.6px] text-ink opacity-55 uppercase flex items-center gap-1.5">
             <span
               className="inline-block w-[7px] h-[7px] rounded-full"
               style={{
@@ -97,7 +97,7 @@ export function SidePanel({
             />
             {nowPlaying === null ? "LOADING…" : np ? "NOW PLAYING" : "NOT PLAYING"}
           </div>
-          <div className="font-mono text-[8.5px] tracking-[1px] opacity-40">SPOTIFY</div>
+          <div className="font-poppins text-[8.5px] tracking-[1px] opacity-40">SPOTIFY</div>
         </div>
         {np ? (
           <>
@@ -132,7 +132,7 @@ export function SidePanel({
                 <div className="text-[11.5px] opacity-65 leading-[1.3] whitespace-nowrap overflow-hidden text-ellipsis">
                   {np.artist}
                 </div>
-                <div className="font-mono text-[8.5px] tracking-[0.8px] opacity-40 mt-1.5 whitespace-nowrap overflow-hidden text-ellipsis">
+                <div className="font-poppins text-[8.5px] tracking-[0.8px] opacity-40 mt-1.5 whitespace-nowrap overflow-hidden text-ellipsis">
                   {np.album.toUpperCase()}
                 </div>
               </div>
@@ -142,7 +142,7 @@ export function SidePanel({
                 <div className="absolute left-0 top-0 bottom-0 bg-ink rounded-sm" style={{ width: `${progress * 100}%` }} />
                 <div className="absolute top-[-3px] w-2 h-2 rounded-full bg-ink" style={{ left: `calc(${progress * 100}% - 4px)` }} />
               </div>
-              <div className="flex justify-between font-mono text-[8.5px] tracking-[0.8px] opacity-50 mt-[7px]">
+              <div className="flex justify-between font-poppins text-[8.5px] tracking-[0.8px] opacity-50 mt-[7px]">
                 <span>{fmtT(np.progressMs / 1000)}</span>
                 <span>{fmtT(np.durationMs / 1000)}</span>
               </div>
@@ -163,21 +163,21 @@ export function SidePanel({
       {/* Latest Commit */}
       <div className="bg-white border border-ink/10 rounded-[14px] px-[18px] pt-[18px] pb-11 text-ink shadow-[0_1px_0_rgba(23,23,23,.02),0_10px_24px_-18px_rgba(23,23,23,.25)] relative">
         <div className="flex justify-between items-center mb-4">
-          <div className="font-mono text-[8.5px] tracking-[1.6px] text-ink opacity-55 uppercase flex items-center gap-1.5">
+          <div className="font-poppins text-[8.5px] tracking-[1.6px] text-ink opacity-55 uppercase flex items-center gap-1.5">
             <span className="inline-block w-1.5 h-1.5 rounded-full bg-ink opacity-40" />
             LATEST COMMIT
           </div>
-          <div className="font-mono text-[8.5px] tracking-[1px] opacity-40">{commit.when} AGO</div>
+          <div className="font-poppins text-[8.5px] tracking-[1px] opacity-40">{commit.when} AGO</div>
         </div>
         <div className="font-instrument-light italic text-[16px] leading-[1.35] tracking-[-0.3px] mb-4">
           &ldquo;{commit.msg}&rdquo;
         </div>
-        <div className="flex items-center gap-2 font-mono text-[9px] tracking-[0.8px] opacity-60 border-t border-ink/8 pt-3">
+        <div className="flex items-center gap-2 font-poppins text-[9px] tracking-[0.8px] opacity-60 border-t border-ink/8 pt-3">
           <span className="px-1.5 py-0.5 bg-ink/5 rounded-[3px] text-[8.5px]">{commit.sha}</span>
           <span>·</span>
           <span>{commit.repo}</span>
         </div>
-        <div className="flex gap-2.5 mt-2.5 items-center font-mono text-[9px]">
+        <div className="flex gap-2.5 mt-2.5 items-center font-poppins text-[9px]">
           <span className="text-[#2da44e]">+{commit.add}</span>
           <span className="text-[#cf222e]">−{commit.del}</span>
           <div className="flex-1 flex gap-px ml-1">
@@ -192,7 +192,7 @@ export function SidePanel({
         </div>
         <button
           onClick={() => setCi((ci + 1) % commits.length)}
-          className="absolute bottom-[14px] right-4 bg-transparent border-0 font-mono text-[8.5px] tracking-[1.4px] opacity-40 cursor-pointer p-1 text-ink"
+          className="absolute bottom-[14px] right-4 bg-transparent border-0 font-poppins text-[8.5px] tracking-[1.4px] opacity-40 cursor-pointer p-1 text-ink"
         >
           ↻ PREV
         </button>

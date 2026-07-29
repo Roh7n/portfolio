@@ -7,7 +7,7 @@ export default function About() {
     <section id="work" className="min-h-screen flex flex-col px-10 py-5 pt-20">
       <div className="max-w-[1440px] mx-auto w-full flex-grow flex flex-col">
         <div className="border-b-2 text pb-6 border-black w-full">
-          <h1 className="text-5xl sm:text-6xl xl:text-7xl font-instrument-light">
+          <h1 className="text-6xl xl:text-7xl font-instrument-light">
             Work
           </h1>
         </div>

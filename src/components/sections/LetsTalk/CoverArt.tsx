@@ -1,6 +1,6 @@
 import type { CSSProperties } from "react";
 
-const base = "absolute inset-0 flex flex-col font-mono text-ink pointer-events-none";
+const base = "absolute inset-0 flex flex-col font-poppins text-ink pointer-events-none";
 
 export function CoverArt({ id, size = "sm" }: { id: string; size?: "sm" | "lg" }) {
   const fs = size === "sm" ? 6.5 : 13;

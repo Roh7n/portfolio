@@ -34,7 +34,7 @@ export function ContactForm() {
   };
 
   return (
-    <div className="bg-white border border-ink/10 rounded-[14px] p-5 text-ink shadow-[0_1px_0_rgba(23,23,23,.02),0_10px_24px_-18px_rgba(23,23,23,.25)] relative overflow-hidden">
+    <div className="bg-white border border-ink/10 rounded-[14px] p-5 text-ink shadow-[0_1px_0_rgba(23,23,23,.02),0_10px_24px_-18px_rgba(23,23,23,.25)] relative overflow-hidden h-full flex flex-col justify-between">
       <div
         aria-hidden
         className="absolute inset-0 pointer-events-none opacity-60"
@@ -44,21 +44,21 @@ export function ContactForm() {
         }}
       />
 
-      <div className="relative flex justify-between items-center font-mono text-[9px] tracking-[1.6px] opacity-55 mb-[14px]">
+      <div className="relative flex justify-between items-center font-poppins text-[9px] tracking-[1.6px] opacity-55 mb-4">
         <span>◂ MAIL SLOT</span>
         <span>SIDE C</span>
       </div>
 
-      <div className="relative font-instrument-light italic text-[26px] leading-none tracking-[-0.5px] mb-5">
+      <div className="relative font-instrument-light italic text-[26px] leading-none tracking-[-0.5px] mb-4">
         Drop a note
       </div>
 
       <form
         onSubmit={handleSubmit}
-        className="relative flex flex-col gap-[14px]"
+        className="relative flex flex-col gap-4 flex-1 justify-between"
       >
         <div>
-          <label className="font-mono text-[8.5px] tracking-[1.4px] opacity-55 block mb-1.5">
+          <label className="font-poppins text-[8.5px] tracking-[1.4px] opacity-55 block mb-1.5">
             YOUR NAME
           </label>
           <input
@@ -67,12 +67,12 @@ export function ContactForm() {
             onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
             placeholder="First Last"
             required
-            className="w-full px-[11px] py-[9px] bg-paper border border-ink/15 rounded-lg font-mono text-[11px] text-ink outline-none leading-snug box-border"
+            className="w-full px-[11px] py-[9px] bg-paper border border-ink/15 rounded-lg font-poppins text-[11px] text-ink outline-none leading-snug box-border"
           />
         </div>
 
         <div>
-          <label className="font-mono text-[8.5px] tracking-[1.4px] opacity-55 block mb-1.5">
+          <label className="font-poppins text-[8.5px] tracking-[1.4px] opacity-55 block mb-1.5">
             YOUR EMAIL
           </label>
           <input
@@ -81,12 +81,12 @@ export function ContactForm() {
             onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
             placeholder="you@example.com"
             required
-            className="w-full px-[11px] py-[9px] bg-paper border border-ink/15 rounded-lg font-mono text-[11px] text-ink outline-none leading-snug box-border"
+            className="w-full px-[11px] py-[9px] bg-paper border border-ink/15 rounded-lg font-poppins text-[11px] text-ink outline-none leading-snug box-border"
           />
         </div>
 
-        <div>
-          <label className="font-mono text-[8.5px] tracking-[1.4px] opacity-55 block mb-1.5">
+        <div className="flex-1 flex flex-col">
+          <label className="font-poppins text-[8.5px] tracking-[1.4px] opacity-55 block mb-1.5">
             YOUR MESSAGE
           </label>
           <textarea
@@ -96,8 +96,8 @@ export function ContactForm() {
             }
             placeholder="Hey, let's work together…"
             required
-            rows={5}
-            className="w-full px-[11px] py-[9px] bg-paper border border-ink/15 rounded-lg font-mono text-[11px] text-ink outline-none leading-snug box-border resize-y"
+            rows={4}
+            className="w-full px-[11px] py-[9px] bg-paper border border-ink/15 rounded-lg font-poppins text-[11px] text-ink outline-none leading-snug box-border resize-y flex-1 min-h-[90px]"
           />
         </div>
 
@@ -105,15 +105,15 @@ export function ContactForm() {
           type="submit"
           disabled={status !== "idle"}
           className={[
-            "px-[14px] py-[11px] text-paper border-0 rounded-[10px] font-mono text-[11px] tracking-[1.6px] font-bold",
+            "px-[14px] py-[11px] text-paper border-0 rounded-[10px] font-poppins text-[11px] tracking-[1.6px] font-bold",
             "flex items-center justify-center gap-2 transition-colors duration-200",
             "shadow-[0_6px_14px_rgba(0,0,0,.18)]",
             status === "sent" ? "bg-[#2da44e]" : "bg-ink",
-            status === "idle" ? "cursor-pointer" : "cursor-not-allowed",
-            status === "sending" ? "opacity-70" : "opacity-100",
+            status === "idle" ? "cursor-pointer" : "cursor-not-allowed", 
+            status === "sending" ? "opacity-70" : "opacity-100", 
           ].join(" ")}
         >
-          {status === "idle" && (
+          {status === "idle" && ( 
             <>
               <span className="border-t-[5px] border-b-[5px] border-l-[8px] border-t-transparent border-b-transparent border-l-paper w-0 h-0" />
               SEND
@@ -124,7 +124,7 @@ export function ContactForm() {
         </button>
       </form>
 
-      <div className="relative mt-4 font-mono text-[8px] tracking-[1.2px] opacity-35 flex justify-between">
+      <div className="relative mt-4 font-poppins text-[8px] tracking-[1.2px] opacity-35 flex justify-between">
         <span>rohanbaburaj4446@gmail.com</span>
         <span>CAT. RB-2026</span>
       </div>

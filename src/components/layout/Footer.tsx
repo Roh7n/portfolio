@@ -5,7 +5,7 @@ export default function Footer() {
     <section>
       <div className="p-5 flex justify-center ">
         <a
-          className="flex items-center gap-2 hover:underline font-mono hover:underline-offset-4 tracking-tighter text-red-600 text-xs opacity-75"
+          className="flex items-center gap-2 hover:underline font-poppins hover:underline-offset-4 tracking-tighter text-red-600 text-xs opacity-75"
           target="_blank"
           href="https://github.com/Roh7n"
           rel="noopener noreferrer"

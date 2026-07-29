@@ -129,7 +129,7 @@ export function VinylPlayer() {
   const loaded = phase === "settled" ? selected : null;
 
   return (
-    <div ref={rootRef} className="relative w-full px-4 py-8 sm:px-8 sm:py-10" style={{ color: INK }}>
+    <div ref={rootRef} className="relative w-full px-10 py-8 md:px-10 lg:px-0 sm:py-10" style={{ color: INK }}>
       {/* header */}
       <div className="border-b-2 border-black pb-5 mb-6 flex justify-between items-end gap-4 flex-wrap">
         <h1 className="text-6xl xl:text-7xl font-instrument-light tracking-tight leading-none">
@@ -137,7 +137,7 @@ export function VinylPlayer() {
         </h1>
         <div
           style={{
-            fontFamily: "var(--font-geist-mono),monospace",
+            fontFamily: "var(--font-poppins), sans-serif",
             fontSize: 10,
             letterSpacing: 1.6,
             opacity: 0.5,
@@ -154,8 +154,8 @@ export function VinylPlayer() {
       </p>
 
       {/* stage: 3-col on lg → 4-col on xl, stacked on mobile */}
-      <div className="grid grid-cols-1 xl:grid-cols-[200px_1fr_240px_260px] gap-5 lg:gap-6 items-start relative max-w-[1300px]">
-        <div className="flex justify-center lg:justify-start">
+      <div className="grid grid-cols-1 xl:grid-cols-[200px_1fr_240px_260px] gap-5 lg:gap-6 items-stretch relative max-w-[1300px]">
+        <div className="flex justify-center lg:justify-start h-full">
           <Crate
             socials={SOCIALS}
             selectedId={selected?.id ?? null}
@@ -164,7 +164,7 @@ export function VinylPlayer() {
           />
         </div>
 
-        <div className="relative flex flex-col items-start min-w-0">
+        <div className="relative flex flex-col justify-between items-start min-w-0 h-full max-w-[440px] w-full mx-auto xl:mx-0">
           <Turntable
             loadedSocial={loaded}
             playing={playing}
@@ -174,16 +174,16 @@ export function VinylPlayer() {
             onArmRelease={handleArmRelease}
             armDragging={armDragging}
           />
-          <div className="w-full" style={{ maxWidth: 440 }}>
+          <div className="w-full flex-1 flex flex-col justify-end" style={{ maxWidth: 440 }}>
             <LinerNotes loadedSocial={loaded} />
           </div>
         </div>
 
-        <div className="min-w-0">
+        <div className="min-w-0 h-full">
           <SidePanel nowSelected={loaded} playing={playing} />
         </div>
 
-        <div className="min-w-0 lg:col-start-3 xl:col-start-4 xl:row-start-1">
+        <div className="min-w-0 h-full lg:col-start-3 xl:col-start-4 xl:row-start-1">
           <ContactForm />
         </div>
       </div>
