@@ -24,6 +24,7 @@ export function SidePanel({
   playing: boolean;
 }) {
   const [nowPlaying, setNowPlaying] = useState<NowPlayingData | null>(null);
+  const [localProgress, setLocalProgress] = useState(0);
   const [ci, setCi] = useState(0);
 
   useEffect(() => {
@@ -32,6 +33,7 @@ export function SidePanel({
         const res = await fetch("/api/now-playing");
         const data: NowPlayingData = await res.json();
         setNowPlaying(data);
+        setLocalProgress(data.progressMs ?? 0);
       } catch {}
     };
     fetchNow();
@@ -39,22 +41,34 @@ export function SidePanel({
     return () => clearInterval(id);
   }, []);
 
+  useEffect(() => {
+    if (!nowPlaying?.isPlaying) return;
+
+    const id = setInterval(() => {
+      setLocalProgress((prev) => {
+        const next = prev + 1000;
+        return next > (nowPlaying.durationMs ?? 0) ? nowPlaying.durationMs ?? 0 : next;
+      });
+    }, 1000);
+
+    return () => clearInterval(id);
+  }, [nowPlaying?.isPlaying, nowPlaying?.durationMs]);
+
   const commit = commits[ci];
-  const np = nowPlaying?.isPlaying ? nowPlaying : null;
-  const progress = np ? np.progressMs / np.durationMs : 0;
+  const np = nowPlaying?.title ? nowPlaying : null;
+  const progress = np && np.durationMs ? localProgress / np.durationMs : 0;
 
   return (
     <div className="flex flex-col justify-between gap-[18px] h-full pt-1">
-      {/* Now Loaded */}
       <div
         className={[
-          "rounded-[14px] p-[18px] text-ink relative",
+          "rounded-[14px] p-[18px] text-ink relative transition-all duration-300",
           nowSelected
             ? "bg-white border border-ink/10 shadow-[0_1px_0_rgba(23,23,23,.02),0_10px_24px_-18px_rgba(23,23,23,.25)]"
-            : "bg-transparent border border-dashed border-ink/18",
+            : "bg-white/40 border border-dashed border-ink/20",
         ].join(" ")}
       >
-        <div className={`flex justify-between items-center ${nowSelected ? "mb-[14px]" : ""}`}>
+        <div className="flex justify-between items-center mb-[14px]">
           <div className="font-poppins text-[8.5px] tracking-[1.6px] text-ink opacity-55 uppercase flex items-center gap-1.5">
             <span
               className="inline-block w-1.5 h-1.5 rounded-full"
@@ -71,13 +85,22 @@ export function SidePanel({
             {nowSelected ? (playing ? "► PLAYING" : "SIDE " + nowSelected.side) : "— —"}
           </div>
         </div>
-        {nowSelected && (
+        {nowSelected ? (
           <div>
             <div className="font-instrument-light italic text-[22px] tracking-[-0.4px] leading-none text-ink">
               {nowSelected.name.charAt(0) + nowSelected.name.slice(1).toLowerCase()}
             </div>
             <div className="mt-1.5 font-poppins text-[10px] tracking-[0.8px] text-ink opacity-60">
               {nowSelected.handle}
+            </div>
+          </div>
+        ) : (
+          <div>
+            <div className="font-instrument-light italic text-[22px] tracking-[-0.4px] leading-none text-ink opacity-40">
+              Choose a vinyl
+            </div>
+            <div className="mt-1.5 font-poppins text-[10px] tracking-[0.8px] text-ink opacity-40 uppercase">
+              to load content
             </div>
           </div>
         )}
@@ -90,12 +113,12 @@ export function SidePanel({
             <span
               className="inline-block w-[7px] h-[7px] rounded-full"
               style={{
-                background: np ? "#1DB954" : INK,
-                opacity: np ? 1 : 0.3,
-                animation: np ? "vp-pulse 1.6s ease-out infinite" : "none",
+                background: nowPlaying?.isPlaying ? "#1DB954" : INK,
+                opacity: nowPlaying?.isPlaying ? 1 : 0.3,
+                animation: nowPlaying?.isPlaying ? "vp-pulse 1.6s ease-out infinite" : "none",
               }}
             />
-            {nowPlaying === null ? "LOADING…" : np ? "NOW PLAYING" : "NOT PLAYING"}
+            {nowPlaying === null ? "LOADING…" : nowPlaying.isPlaying ? "NOW PLAYING" : np ? "LAST PLAYED" : "NOT PLAYING"}
           </div>
           <div className="font-poppins text-[8.5px] tracking-[1px] opacity-40">SPOTIFY</div>
         </div>
@@ -107,7 +130,7 @@ export function SidePanel({
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
                     src={np.albumArt}
-                    alt={np.album}
+                    alt={np.album ?? ""}
                     className="absolute inset-0 w-full h-full object-cover rounded-md"
                   />
                 ) : (
@@ -120,7 +143,7 @@ export function SidePanel({
                       }}
                     />
                     <div className="absolute inset-0 flex items-center justify-center font-instrument-light italic text-2xl text-white/85 leading-none">
-                      {np.title.charAt(0)}
+                      {np.title?.charAt(0)}
                     </div>
                   </>
                 )}
@@ -133,25 +156,27 @@ export function SidePanel({
                   {np.artist}
                 </div>
                 <div className="font-poppins text-[8.5px] tracking-[0.8px] opacity-40 mt-1.5 whitespace-nowrap overflow-hidden text-ellipsis">
-                  {np.album.toUpperCase()}
+                  {np.album?.toUpperCase()}
                 </div>
               </div>
             </div>
             <div className="mt-[18px]">
               <div className="h-0.5 bg-ink/8 rounded-sm overflow-visible relative">
-                <div className="absolute left-0 top-0 bottom-0 bg-ink rounded-sm" style={{ width: `${progress * 100}%` }} />
-                <div className="absolute top-[-3px] w-2 h-2 rounded-full bg-ink" style={{ left: `calc(${progress * 100}% - 4px)` }} />
+                <div className="absolute left-0 top-0 bottom-0 bg-ink rounded-sm transition-all duration-1000 ease-linear" style={{ width: `${progress * 100}%` }} />
+                <div className="absolute top-[-3px] w-2 h-2 rounded-full bg-ink transition-all duration-1000 ease-linear" style={{ left: `calc(${progress * 100}% - 4px)` }} />
               </div>
               <div className="flex justify-between font-poppins text-[8.5px] tracking-[0.8px] opacity-50 mt-[7px]">
-                <span>{fmtT(np.progressMs / 1000)}</span>
-                <span>{fmtT(np.durationMs / 1000)}</span>
+                <span>{fmtT(localProgress / 1000)}</span>
+                <span>{fmtT((np.durationMs ?? 0) / 1000)}</span>
               </div>
             </div>
-            <div className="absolute top-[18px] right-[66px] flex items-end gap-0.5 h-2.5">
-              {[0, 1, 2, 3].map((i) => (
-                <EqBar key={i} delay={i * 0.15} />
-              ))}
-            </div>
+            {nowPlaying?.isPlaying && (
+              <div className="absolute top-[18px] right-[66px] flex items-end gap-0.5 h-2.5">
+                {[0, 1, 2, 3].map((i) => (
+                  <EqBar key={i} delay={i * 0.15} />
+                ))}
+              </div>
+            )}
           </>
         ) : (
           <div className="font-instrument-light italic text-[15px] opacity-40 pb-2">
