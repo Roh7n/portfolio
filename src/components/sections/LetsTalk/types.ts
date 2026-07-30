@@ -12,3 +12,12 @@ export type NowPlayingData = {
   progressMs?: number;
   durationMs?: number;
 };
+
+export type CommitData = {
+  repo: string;
+  msg: string;
+  when: string;
+  sha: string;
+  add: number;
+  del: number;
+};

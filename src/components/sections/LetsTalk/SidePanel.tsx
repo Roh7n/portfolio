@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { INK } from "./constants";
-import type { Social, NowPlayingData } from "./types";
+import type { Social, NowPlayingData, CommitData } from "./types";
 import { EqBar } from "./EqBar";
 
 function fmtT(s: number) {
@@ -10,7 +10,7 @@ function fmtT(s: number) {
   return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
 }
 
-const commits = [
+const FALLBACK_COMMITS: CommitData[] = [
   { repo: "portfolio", msg: "feat: ship vinyl contact section", when: "2h", sha: "a4f1e8c", add: 184, del: 23 },
   { repo: "portfolio", msg: "refactor(hero): trim scroll handlers", when: "1d", sha: "7c2d9b0", add: 42, del: 58 },
   { repo: "notes-app", msg: "fix: markdown paste strips inline styles", when: "3d", sha: "0e5a6f2", add: 12, del: 4 },
@@ -25,7 +25,23 @@ export function SidePanel({
 }) {
   const [nowPlaying, setNowPlaying] = useState<NowPlayingData | null>(null);
   const [localProgress, setLocalProgress] = useState(0);
+  const [commits, setCommits] = useState<CommitData[]>(FALLBACK_COMMITS);
   const [ci, setCi] = useState(0);
+
+  useEffect(() => {
+    const fetchCommits = async () => {
+      try {
+        const res = await fetch("/api/github");
+        if (res.ok) {
+          const data = await res.json();
+          if (Array.isArray(data) && data.length > 0) {
+            setCommits(data);
+          }
+        }
+      } catch {}
+    };
+    fetchCommits();
+  }, []);
 
   useEffect(() => {
     const fetchNow = async () => {
@@ -194,10 +210,10 @@ export function SidePanel({
           </div>
           <div className="font-poppins text-[8.5px] tracking-[1px] opacity-40">{commit.when} AGO</div>
         </div>
-        <div className="font-instrument-light italic text-[16px] leading-[1.35] tracking-[-0.3px] mb-4">
+        <div className="font-instrument-light italic text-[16px] leading-[1.35] tracking-[-0.3px] mb-2">
           &ldquo;{commit.msg}&rdquo;
         </div>
-        <div className="flex items-center gap-2 font-poppins text-[9px] tracking-[0.8px] opacity-60 border-t border-ink/8 pt-3">
+        <div className="flex items-center gap-2 font-poppins text-[9px] tracking-[0.8px] opacity-60 border-t border-ink/8 pt-2">
           <span className="px-1.5 py-0.5 bg-ink/5 rounded-[3px] text-[8.5px]">{commit.sha}</span>
           <span>·</span>
           <span>{commit.repo}</span>
